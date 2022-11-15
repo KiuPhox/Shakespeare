@@ -79,7 +79,6 @@ class AuthController extends Controller
                     'level' => 1,
                     'password' => $hashed_random_password,
                     'email' => $google_user->getEmail(),
-                    'google_id' => $google_user->getId(),
                 ]);
 
                 session()->put('id', $new_user->id);
