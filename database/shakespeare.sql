@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2022 at 07:49 PM
+-- Generation Time: Nov 15, 2022 at 08:56 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -20,6 +20,34 @@ SET time_zone = "+00:00";
 --
 -- Database: `shakespeare`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `addresses`
+--
+
+CREATE TABLE `addresses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `company` varchar(50) NOT NULL,
+  `address` varchar(200) NOT NULL,
+  `postal_code` int(11) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `country` varchar(50) NOT NULL,
+  `phone_number` int(11) NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `addresses`
+--
+
+INSERT INTO `addresses` (`id`, `first_name`, `last_name`, `company`, `address`, `postal_code`, `city`, `country`, `phone_number`, `user_id`) VALUES
+(1, 'a', 'a', 'a', 'a', 12, 'd', 'd', 321312312, 1),
+(3, 'a', 'a', 'a', 'a', 21, 'a', 'a', 2, 6),
+(4, 'b', 'a', 'a', 'a', 12, 'd', 'd', 321312312, 6);
 
 -- --------------------------------------------------------
 
@@ -48,12 +76,15 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`id`, `title`, `author`, `description`, `image`, `price`, `publisher_id`, `quantity`, `publication_date`, `page_quantity`, `isbn`, `created_at`, `updated_at`) VALUES
-(1, 'The Last White Man', 'Hadmin, Moshin', NULL, 'https://s3.eu-west-3.amazonaws.com/nova-shakespeare-production/product/images_135/6040497.jpg', 18, 1, 200, NULL, 191, '9780241566572', '2022-10-08 04:56:21', '2022-10-09 00:59:52'),
 (2, 'Girlcrush', 'Given, Florence', NULL, 'https://s3.eu-west-3.amazonaws.com/nova-shakespeare-production/product/images_133/5941623_1.jpg', 21, 2, 120, '2022-10-08 17:00:00', 60, '9781914240546', '2022-10-08 04:59:01', '2022-10-09 09:27:26'),
 (3, 'Reeling', 'Lafon, Lola', 'An impassioned meditation on the consequences of sexual exploitation and the dead ends of forgiveness', 'https://s3.eu-west-3.amazonaws.com/nova-shakespeare-production/product/images_135/6071546_1.jpg', 18, 3, 100, '2022-02-09 17:00:00', 192, '9781787703582', '2022-10-09 01:10:53', '2022-10-09 09:27:12'),
 (6, 'Yoga', 'Carrere, Emmanuel', NULL, 'https://s3.eu-west-3.amazonaws.com/nova-shakespeare-production/product/images_134/5993525_1.jpg', 23, 1, 14, '2022-06-01 17:00:00', 320, '9781787333215', '2022-10-09 09:29:04', '2022-10-09 09:29:04'),
 (7, 'Slack-Tide', 'Dymott, Elanor', 'When two people meet is it need, fantasy or love? She meets Robert - exuberant, generous, apparently care-free - and they fall in love with breath-taking speed. Slack-tide tracks the ebbs and flows of the affair: passionate, coercive, intensely sexual.', 'https://s3.eu-west-3.amazonaws.com/nova-shakespeare-production/product/images_116/5210684_1.jpg', 18, 4, 23, '2019-01-16 17:00:00', 208, '9781787331129', '2022-10-09 09:33:04', '2022-10-09 09:33:04'),
-(8, 'Friday on My Mind', 'French, Nicci', 'When a bloated corpse is found floating in the River Thames the police can at least sure that identifying the victim will be straightforward. Around the dead man\'s wrist is a hospital band. On it are the words Dr F Klein... But psychotherapist Frieda Klein is very much alive.', 'https://s3.eu-west-3.amazonaws.com/nova-shakespeare-production/product/images_116/5199367.jpg', 13, 1, 51, '2016-02-24 17:00:00', 464, '9781405918596', '2022-10-09 09:35:46', '2022-10-09 09:35:46');
+(8, 'Friday on My Mind', 'French, Nicci', 'When a bloated corpse is found floating in the River Thames the police can at least sure that identifying the victim will be straightforward. Around the dead man\'s wrist is a hospital band. On it are the words Dr F Klein... But psychotherapist Frieda Klein is very much alive.', 'https://s3.eu-west-3.amazonaws.com/nova-shakespeare-production/product/images_116/5199367.jpg', 13, 1, 51, '2016-02-24 17:00:00', 464, '9781405918596', '2022-10-09 09:35:46', '2022-10-30 09:08:48'),
+(9, 'Ulysses', 'Joyce, James', 'Loosely based on the Odyssey, this landmark of modern literature follows ordinary Dubliners in 1904. Capturing a single day in the life of Dubliner Leopold Bloom, his friends Buck Mulligan and Stephen Dedalus, his wife Molly, and a scintillating cast of supporting characters, Joyce pushes Celtic lyricism and vulgarity to splendid extremes. Captivating experimental techniques range from interior monologues to exuberant wordplay and earthy humor. A major achievement in 20th century literature.', 'https://s3.eu-west-3.amazonaws.com/nova-shakespeare-production/product/images_140/6288789.jpg', 27, 1, 3354343, '2022-01-26 17:00:00', 1040, '9780241552636', '2022-10-09 17:24:31', '2022-10-30 09:42:35'),
+(10, 'Notes of a Native Son', 'Baldwin, James', 'In an age of Black Lives Matter, James Baldwin\'s essays on life in Harlem, the protest novel, movies, and African Americans abroad are as powerful today as when they were first written. With films like I Am Not Your Negro and the forthcoming If Beale Street Could Talk bringing renewed interest to Baldwin\'s life and work, Notes of a Native Son serves as a valuable introduction.\r\n\r\nWritten during the 1940s and early 1950s, when Baldwin was only in his twenties, the essays collected in Notes of a Native Son capture a view of black life and black thought at the dawn of the civil rights movement and as the movement slowly gained strength through the words of one of the most captivating essayists and foremost intellectuals of that era. Writing as an artist, activist, and social critic, Baldwin probes the complex condition of being black in America. With a keen eye, he examines everything from the significance of the protest novel to the motives and circumstances of the many black expatriates of the time, from his home in “The Harlem Ghetto” to a sobering “Journey to Atlanta.”\r\n\r\nNotes of a Native Son inaugurated Baldwin as one of the leading interpreters of the dramatic social changes erupting in the United States in the twentieth century, and many of his observations have proven almost prophetic. His criticism on topics such as the paternalism of white progressives or on his own friend Richard Wright’s work is pointed and unabashed. He was also one of the few writing on race at the time who addressed the issue with a powerful mixture of outrage at the gross physical and political violence against black citizens and measured understanding of their oppressors, which helped awaken a white audience to the injustices under their noses. Naturally, this combination of brazen criticism and unconventional empathy for white readers won Baldwin as much condemnation as praise.\r\n\r\nNotes is the book that established Baldwin’s voice as a social critic, and it remains one of his most admired works. The essays collected here create a cohesive sketch of black America and reveal an intimate portrait of Baldwin’s own search for identity as an artist, as a black man, and as an American.', 'https://s3.eu-west-3.amazonaws.com/nova-shakespeare-production/product/images_157/7033700.jpg', 14, 1, 123, '2017-01-11 17:00:00', 208, '9780241334003', '2022-10-09 17:34:38', '2022-10-09 17:34:38'),
+(11, 'A Portrait Of The Artist As Young Man', 'Joyce, James', NULL, 'https://s3.eu-west-3.amazonaws.com/nova-shakespeare-production/product/images_130/5811895.jpg', 22, 1, 188, '2022-05-09 17:00:00', 1000, '9780143124313', '2022-10-26 11:53:57', '2022-10-26 11:53:57'),
+(12, 'We are all weird', 'Godin, Seth', NULL, 'https://s3.eu-west-3.amazonaws.com/nova-shakespeare-production/product/images_117/5259029_1.jpg', 13, 1, 12, '2015-07-22 17:00:00', 1111, '9780241209011', '2022-10-30 09:22:32', '2022-10-30 09:22:32');
 
 -- --------------------------------------------------------
 
@@ -117,7 +148,8 @@ INSERT INTO `publishers` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Penguin Books LTD', NULL, NULL),
 (2, 'Octopus', NULL, NULL),
 (3, 'Europa Editions (UK) LTD', NULL, NULL),
-(4, 'Vintage Publishing', NULL, NULL);
+(4, 'Vintage Publishing', NULL, NULL),
+(5, 'Faber & Faber', '2022-10-30 09:27:17', '2022-10-30 09:27:17');
 
 -- --------------------------------------------------------
 
@@ -140,12 +172,19 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `password`, `email`, `level`, `created_at`) VALUES
 (1, 'Admin', '$2y$10$sEN7.oCLpJ3s77ogynLKU.Uq9Zim673GLy/fomiX4EjPlMeYq/djS', 'admin@admin.com', 0, '2022-10-09 04:26:34'),
-(2, 'Anh Tuan', '$2y$10$LYwe4HtnD5VOFUvUw9bEP.YcnnC6y.cwfFIjAE1Qn9.K9FaWyUdcy', 'tuan.nguyenphananh@gmail.com', 1, '2022-10-09 06:46:05'),
-(3, 'Tot', '$2y$10$uO8xYfWXdpfpRDsy44RbkuGMFTtNrbhMjfDC5ynbC3pCLgw29up2W', 'tot@gmail.com', 1, '2022-10-09 15:06:06');
+(5, 'User', '$2y$10$95S9U.wdH.4kmM.uCm3ZeuYPvRLbSAiQD9UPv4oeuQl7U1MMsJppS', 'user@user.com', 1, '2022-10-09 22:41:01'),
+(6, 'Anh Tuan', '$2y$10$dfeaAk/bIBfG.D7YTLqBMep4RExrRboBYEeDwvXebJbGpqokD5Aom', 'tuan@gmail.com', 1, '2022-11-15 14:39:20');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `addresses`
+--
+ALTER TABLE `addresses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `books`
@@ -172,7 +211,8 @@ ALTER TABLE `personal_access_tokens`
 -- Indexes for table `publishers`
 --
 ALTER TABLE `publishers`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `users`
@@ -186,10 +226,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `addresses`
+--
+ALTER TABLE `addresses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -207,17 +253,23 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `publishers`
 --
 ALTER TABLE `publishers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `addresses`
+--
+ALTER TABLE `addresses`
+  ADD CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `books`
