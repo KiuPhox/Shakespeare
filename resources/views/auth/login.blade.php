@@ -46,6 +46,11 @@
                         </a>
                     </div>
 
+                    <div class="form-group mb-0 text-center">
+                        <a href="{{route('google-auth')}}" class="btn btn-danger mb-2 "> Google</a>
+                    </div>
+
+
                     <div class="card-body p-4">
 
                         <div class="text-center w-75 m-auto">
