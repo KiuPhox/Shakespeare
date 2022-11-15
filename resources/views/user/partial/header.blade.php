@@ -11,7 +11,12 @@
             <span class="cart-count">{{Cart::count()}}</span>
         </a>
         @if (session()->has('name'))
-            <a id="login-button" href="{{route('logout')}}">{{session()->get('name')}}</a>
+                <div id="login-button" href="">{{session()->get('name')}}
+                    <div id="menu-account">
+                        <a href="{{route('account.index')}}">Account</a>
+                        <a href="{{route('logout')}}">Sign Out</a>
+                    </div>
+                </div>
 
         @else
             <a id="login-button" href="{{route('login')}}">Sign In</a>
@@ -39,7 +44,48 @@
     </div>
 </div>
 
+<script>
+    const login_button = document.getElementById('login-button');
+    const menu_account = document.getElementById('menu-account');
+
+    document.addEventListener('click', function(event){
+        if (!menu_account.contains(event.target) && !login_button.contains(event.target)){
+            menu_account.style.display = 'none';
+            console.log('te');
+        }
+    })
+
+    login_button.addEventListener('click', function(){
+        if (menu_account.style.display === 'none'){
+            menu_account.style.display = 'flex';
+        }else{
+            menu_account.style.display = 'none';
+        }
+    });
+</script>
+
 <style>
+    #menu-account{
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        top: 3rem;
+        right: -2rem;
+        background-color: white;
+        height: 20px;
+        width: 100px;
+        padding: 1.5rem;
+        justify-content: center;
+        align-items: flex-start;
+        cursor: default;
+        line-height: 0.3rem;
+    }
+
+
+    #menu-account a{
+        margin: 10px 0;
+    }
+
     #app-header {
         display: flex;
         flex-direction: column;
@@ -64,6 +110,9 @@
         letter-spacing: .1rem;
         cursor: pointer;
         font-size: 11px;
+        height: 50px;
+        padding: 0 20px;
+        line-height: 50px;
     }
 
     #search-bar{
@@ -116,6 +165,7 @@
         text-transform: uppercase;
         margin-right:100px;
         cursor: pointer;
+        position: relative;
     }
 
     #menu-secondary {

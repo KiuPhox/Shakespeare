@@ -1,10 +1,37 @@
 @extends('user.layouts.master-user')
-@section('title', 'Shakespeare and Company')
+@section('title', 'My account')
 
 
 @section('content')
-<form>
-    <div class="form-container">
+
+<div class="account">
+    <div class="account-container">
+        <h1>My account</h1>
+        <div class="account-info">
+            <div class="account-detail">
+                <h3>My account details</h3>
+                <div class="account-detail-container">
+                    <div class="account-email">{{$account->email}}</div>
+                    <div class="account-name">{{$account->name}}</div>
+                </div>
+            </div>
+            <div class="account-addresses">
+                <h3>My addresses</h3>
+                <div class="account-addresses-container">
+                    <div class="account-address">Your saved addresses are displayed here.</div>
+                </div>
+                <button id="new-address">New address</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form id="form-address" style="display: none;">
+    <div class="form-header">
+        <h2>Edit an address</h2>
+        <img id="close-btn" src="https://cdn-icons-png.flaticon.com/512/660/660252.png">
+    </div>
+    <div  class="form-container">
         <div class="form-row">
             <div class="form-input">
                 <input type="text" placeholder="">
@@ -41,10 +68,8 @@
             <input type="text" placeholder="">
             <div class="form-label">Phone number</div>
         </div>
-        <a href=""><button type="submit" id="order-btn">Place Order</button></a>
     </div>
-
-
+    <button id="save-btn">Save</button>
 </form>
 
 
@@ -52,6 +77,97 @@
 
 @section('styles')
     <style>
+        .form-header{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-header img{
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        .form-header h2{
+            font-size: 2rem;
+            font-family: "Swiss721",sans-serif;
+            font-weight: 400;
+        }
+
+        #form-address{
+            width: 89%;
+            height: 80%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f0efea;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+        }
+
+        .account{
+            width: 85%;
+            margin: auto;
+        }
+
+        #save-btn{
+            margin: auto;
+        }
+
+        .account button, #save-btn{
+            border: 2px solid black;
+            background-color: transparent;
+            padding: 6px 14px;
+            font-size: 15px;
+            text-transform: uppercase;
+            font-family: "Swiss721",sans-serif;
+            letter-spacing: .15rem;
+            font-weight: 500;
+            transition: all .3s cubic-bezier(.25,.8,.5,1);
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+
+        .account button:hover, #save-btn:hover{
+            background-color: rgba(0, 0,0, 0.1);
+        }
+
+        .account-info{
+            display: flex;
+        }
+
+        .account-info{
+            font-family: "EBGaramond",serif;
+            font-size: 1.3rem;
+        }
+
+        .account-detail{
+            flex-basis: 30%;
+            margin-right: 16px;
+        }
+
+        .account-detail-container, .account-addresses-container{
+            background-color: #f2f2f2;
+            padding: 16px;
+        }
+
+
+        .account-email{
+            font-style: italic;
+            margin: 0.3rem 0;
+        }
+
+        .account-name{
+            font-weight: bold;
+            margin: 0.3rem 0;
+        }
 
         #order-btn{
             border: 2px solid #0b3937;
@@ -74,7 +190,7 @@
         .form-container{
             display: flex;
             flex-direction: column;
-            width: 80%;
+            width: 100%;
             margin: auto;
         }
 
@@ -103,6 +219,7 @@
             width: 100%;
             font-size: 1.3rem;
             font-family: 'EB Garamond', serif;
+            background-color: transparent;
         }
 
         .form-input input:focus-visible {
@@ -128,6 +245,17 @@
     <script>
         const inputs = document.querySelectorAll('.form-input input');
         const form_labels = document.querySelectorAll('.form-input .form-label');
+        const new_address = document.getElementById('new-address');
+        const form_address = document.getElementById('form-address');
+        const close_btn = document.getElementById('close-btn')
+
+        new_address.addEventListener('click', function(event){
+            form_address.style.display = 'flex';
+        })
+
+        close_btn.addEventListener('click', function(event){
+            form_address.style.display = 'none';
+        })
 
         inputs.forEach(function(item){
             item.addEventListener('focus', function(){

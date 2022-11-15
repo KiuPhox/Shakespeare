@@ -1,5 +1,5 @@
 @extends('user.layouts.master-user')
-@section('title', 'Shakespeare and Company')
+@section('title', $book->title)
 
 @section('content')
 <div id="book-container">
