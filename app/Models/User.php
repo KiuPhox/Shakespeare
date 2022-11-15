@@ -16,6 +16,5 @@ class User extends Model
         'email',
         'password',
         'level',
-        'google_id',
         ];
 }
