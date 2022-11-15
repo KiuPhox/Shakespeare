@@ -3,7 +3,6 @@
 
 
 @section('content')
-
 <div class="account">
     <div class="account-container">
         <h1>My account</h1>

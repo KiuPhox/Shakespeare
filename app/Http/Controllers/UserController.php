@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Address;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -28,11 +29,19 @@ class UserController extends Controller
 
     public function account(){
         if (session()->has('name')){
-            $account = User::query()->find(session()->get('id'));
+            $id = session()->get('id');
+            $addresses = Address::query()->get()->where('user_id', '=', $id);
+            $account = User::query()->find($id);
 
-            return view('user.home.account', ['account' => $account]);
+            return view('user.home.account', [
+                'account' => $account,
+                'addresses' => $addresses
+            ]);
         }
         return redirect()->route('home.index');
+    }
+
+    public function saveAddress(Request $request){
     }
 
     /**

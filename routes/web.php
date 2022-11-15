@@ -38,6 +38,7 @@ Route::group([
     'middleware'=> CheckLoginMiddleware::class,
 ], function(){
     Route::get('account', [UserController::class, 'account'])->name('account.index');
+    Route::post('account', [UserController::class, 'saveAddress'])->name('process_save_address');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     Route::group([
         'middleware'=> CheckAdminMiddleware::class,
