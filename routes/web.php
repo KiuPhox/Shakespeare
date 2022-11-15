@@ -29,6 +29,8 @@ Route::post('login', [AuthController::class, 'processLogin'])->name('process_log
 Route::get('signup', [AuthController::class, 'signup'])->name('signup');
 Route::post('signup', [AuthController::class, 'processSignup'])->name('process_signup');
 
+Route::get('/google', [AuthController::class, 'googleRedirect'])->name('google-auth');
+Route::get('/google/callback', [AuthController::class, 'callbackGoogle']);
 
 
 

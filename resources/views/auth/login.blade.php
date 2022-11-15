@@ -47,8 +47,9 @@
                     </div>
 
                     <div class="form-group mb-0 text-center">
-                        <button class="btn btn-primary"> Google </button>
+                        <a href="{{route('google-auth')}}" class="btn btn-danger mb-2 "> Google</a>
                     </div>
+
 
                     <div class="card-body p-4">
 
