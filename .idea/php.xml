@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ChangeListManager">
-    <list default="true" id="ab18e8fd-26d8-4b9d-8a68-ebfda42677e8" name="Changes" comment="" />
-    <option name="SHOW_DIALOG" value="false" />
-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
-    <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
-    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/package.json" />
-  </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpIncludePathManager">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/psr/container" />
@@ -135,114 +115,10 @@
       <path value="$PROJECT_DIR$/vendor/bumbummen99/shoppingcart" />
     </include_path>
   </component>
-  <component name="ProjectId" id="2Fm7qyyySLldt04vsjwtagfBkTe" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/Shakespeare/resources/views/user/home&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
-    ]
-  }
-}</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\Shakespeare\resources\views\user\home" />
-      <recent name="C:\xampp\htdocs\Shakespeare\app\Models" />
-      <recent name="C:\xampp\htdocs\Shakespeare\app\Http\Controllers" />
-      <recent name="C:\xampp\htdocs\Shakespeare\database" />
-      <recent name="C:\xampp\htdocs\Shakespeare\resources\views\home" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\Shakespeare\database" />
-      <recent name="C:\xampp\htdocs\Shakespeare\resources\views\user" />
-      <recent name="C:\xampp\htdocs\Shakespeare\resources\views\partial" />
-      <recent name="C:\xampp\htdocs\Shakespeare\public" />
-      <recent name="C:\xampp\htdocs\Shakespeare\resources\views\home" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-      <TestRunner scope="XML" />
-      <method v="2" />
-    </configuration>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="ab18e8fd-26d8-4b9d-8a68-ebfda42677e8" name="Changes" comment="" />
-      <created>1665085602201</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1665085602201</updated>
-      <workItem from="1665085604964" duration="3335000" />
-      <workItem from="1665110273097" duration="10716000" />
-      <workItem from="1665136053973" duration="229000" />
-      <workItem from="1665143700211" duration="260000" />
-      <workItem from="1665146509217" duration="14008000" />
-      <workItem from="1665254610056" duration="7901000" />
-      <workItem from="1665287251773" duration="17538000" />
-      <workItem from="1665318145864" duration="21218000" />
-      <workItem from="1665378861677" duration="302000" />
-      <workItem from="1665382568157" duration="23000" />
-      <workItem from="1665382611662" duration="2000" />
-      <workItem from="1667282361619" duration="490000" />
-      <workItem from="1667484428401" duration="5379000" />
-      <workItem from="1667499967580" duration="4697000" />
-      <workItem from="1667734717341" duration="1832000" />
-      <workItem from="1667742781128" duration="6077000" />
-      <workItem from="1668359119694" duration="2413000" />
-      <workItem from="1668398238901" duration="969000" />
-      <workItem from="1668498843947" duration="302000" />
-      <workItem from="1668521331956" duration="671000" />
-      <workItem from="1668522018537" duration="455000" />
-      <workItem from="1668522932662" duration="42000" />
-      <workItem from="1668522996845" duration="4368000" />
-    </task>
-    <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/admin/layouts/master-admin.blade.php</url>
-          <line>23</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/phpunit.xml" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" use_configuration_file="true" />
+    </phpunit_settings>
   </component>
 </project>

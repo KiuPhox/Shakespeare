@@ -46,6 +46,10 @@
                         </a>
                     </div>
 
+                    <div class="form-group mb-0 text-center">
+                        <button class="btn btn-primary"> Google </button>
+                    </div>
+
                     <div class="card-body p-4">
 
                         <div class="text-center w-75 m-auto">
