@@ -26,6 +26,15 @@ class UserController extends Controller
         ]);
     }
 
+    public function account(){
+        if (session()->has('name')){
+            $account = User::query()->find(session()->get('id'));
+
+            return view('user.home.account', ['account' => $account]);
+        }
+        return redirect()->route('home.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

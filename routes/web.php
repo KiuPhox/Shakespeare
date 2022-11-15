@@ -35,6 +35,7 @@ Route::post('signup', [AuthController::class, 'processSignup'])->name('process_s
 Route::group([
     'middleware'=> CheckLoginMiddleware::class,
 ], function(){
+    Route::get('account', [UserController::class, 'account'])->name('account.index');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     Route::group([
         'middleware'=> CheckAdminMiddleware::class,
@@ -51,6 +52,7 @@ Route::group([
     });
 });
 
+
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/product/{id}', [HomeController::class, 'show'])->name('product.show');
@@ -64,6 +66,7 @@ Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.r
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
 Route::get('/checkout/', [CheckOutController::class, 'index'])->name('checkout.index');
+
 
 
 
