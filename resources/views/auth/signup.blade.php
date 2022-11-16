@@ -59,6 +59,14 @@
 
                         <form method="post" action="{{ route('process_signup') }}">
                             @csrf
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger center">
+                                    Please check again
+                                </div>
+
+                            @endif
+
                             <div class="form-group">
                                 <label for="fullname">Full Name</label>
                                 <input name="name" class="form-control" type="text" id="fullname" placeholder="Enter your name" required>
@@ -67,6 +75,9 @@
                             <div class="form-group">
                                 <label for="emailaddress">Email address</label>
                                 <input name="email" class="form-control" type="email" id="emailaddress" required placeholder="Enter your email">
+                                @error('email')
+                                    <span style="color:orangered;">{{$message}}</span>
+                                @enderror
                             </div>
 
                             <div class="form-group">

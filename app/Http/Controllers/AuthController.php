@@ -54,13 +54,28 @@ class AuthController extends Controller
 
     public function processSignup(Request $request)
     {
-        User::query()->create([
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-            'password' => Hash::make($request->get('password')),
-            'level' => 1,
-        ]);
-    }
+        $rules = [
+            'email' => 'unique:App\Models\User,email',
+        ];
+
+
+
+        $request->validate($rules);
+
+        $user = User::query()
+            ->where('email', $request->get('email'));
+
+            User::query()->create([
+                'name' => $request->get('name'),
+                'email' => $request->get('email'),
+                'password' => Hash::make($request->get('password')),
+                'level' => 1,
+            ]);
+            return redirect()->route('login');
+
+        }
+
+
 
     public function googleRedirect()
     {
