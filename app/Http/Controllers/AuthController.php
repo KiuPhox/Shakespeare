@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Throwable;
 use function MongoDB\Driver\Monitoring\removeSubscriber;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EmailVerificationMail;
 
 class AuthController extends Controller
 {
@@ -62,20 +65,34 @@ class AuthController extends Controller
 
         $request->validate($rules);
 
-        $user = User::query()
-            ->where('email', $request->get('email'));
-
-            User::query()->create([
+        $user= User::query()->create([
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),
                 'password' => Hash::make($request->get('password')),
                 'level' => 1,
+                'email_verification_code' =>Str::random(10)
             ]);
-            return redirect()->route('login');
+
+            Mail::to($request -> email)->send(new EmailVerificationMail($user));
+            return redirect()->back()->with('success', 'Verification');
 
         }
 
-
+    public function verifyEmail($verification_code){
+        $user = User::where('email_verification_code', $verification_code)->first();
+        if(!$user) {
+            return redirect()->route('signup')->with('error', 'Invalid');
+        }else {
+            if($user->email_verified_at){
+                return redirect()->route('signup')->with('error', 'Email already verified');
+            }else{
+                $user->update([
+                    'email_verified_at' =>Carbon::now()
+                ]);
+                return redirect()->route('signup')->with('success', 'Email verified');
+            }
+        }
+    }
 
     public function googleRedirect()
     {

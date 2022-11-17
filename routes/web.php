@@ -70,6 +70,8 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
 Route::get('/checkout/', [CheckOutController::class, 'index'])->name('checkout.index');
 
+//email
+Route::get('/auth/verify-email/{verification_code}', [AuthController::class, 'verifyEmail'])->name('verify_email');
 
 
 

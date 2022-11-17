@@ -16,5 +16,7 @@ class User extends Model
         'email',
         'password',
         'level',
+        'email_verification_code',
+        'email_verified_at'
         ];
 }
