@@ -4,6 +4,7 @@
 
 
 @section('content')
+    <div class="books-grid">
     @foreach($books as $book)
         <div id="books-container">
             <div class="book-card">
@@ -27,22 +28,29 @@
                 </a>
             </div>
         </div>
-    @endforeach
+        @endforeach
+    </div>
+
 @stop
 
 @section('styles')
     <style>
         #books-container {
-            margin-left: 5.5rem;
+        }
+
+        .books-grid{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-column-gap: 8px;
+            grid-row-gap: 60px;
+            padding: 0;
+            margin-left: 65px;
             margin-top: 5rem;
         }
 
         .book-card {
             display: flex;
             flex-direction: column;
-            width: 25%;
-            float: left;
-            margin-top: 2.5rem;
         }
 
         .book-cover {
@@ -79,7 +87,7 @@
         }
 
         .book-information h3 {
-            margin-top: 3rem;
+            margin-top: 1rem;
             font-size: 1.2rem;
             font-weight: 400;
             text-transform: uppercase;

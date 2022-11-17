@@ -18,6 +18,24 @@
                 <h3>My addresses</h3>
                 <div class="account-addresses-container">
                     <div class="account-address">Your saved addresses are displayed here.</div>
+                    <div class="addresses-grid">
+                        <div class="address-container">
+                            <p>Company</p>
+                            <p>Anh Tuan</p>
+                            <p>Address</p>
+                            <p>3213321 City</p>
+                            <p>Country</p>
+                            <p>0941974458</p>
+                        </div>
+                        <div class="address-container">
+                            <p>Company</p>
+                            <p>Anh Tuan</p>
+                            <p>Address</p>
+                            <p>3213321 City</p>
+                            <p>Country</p>
+                            <p>0941974458</p>
+                        </div>
+                    </div>
                 </div>
                 <button id="new-address">New address</button>
             </div>
@@ -76,6 +94,38 @@
 
 @section('styles')
     <style>
+        .account-addresses{
+            flex-basis: 80%;
+        }
+
+        .addresses-grid{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-column-gap: 24px;
+            grid-row-gap: 60px;
+            padding: 0;
+            margin: 20px;
+        }
+
+        .address-container{
+            width: 100%;
+            border: 4px solid grey;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+        }
+
+        .address-container p{
+            font-family: "EBGaramond",serif;
+            font-weight: 100;
+            font-size: 1.2rem;
+            font-feature-settings: "onum";
+            font-variant-numeric: oldstyle-nums;
+            margin: 4px 0;
+        }
+
         .form-header{
             width: 100%;
             display: flex;

@@ -14,6 +14,9 @@
                 <div id="login-button" href="">{{session()->get('name')}}
                     <div id="menu-account">
                         <a href="{{route('account.index')}}">Account</a>
+                        @if (session()->get('level') === 0)
+                        <a href="{{route('books.index')}}">Dashboard</a>
+                        @endif
                         <a href="{{route('logout')}}">Sign Out</a>
                     </div>
                 </div>
