@@ -8,6 +8,7 @@
 
     <div class="cart-table">
         @foreach($carts as $book)
+            <?php $book_id_order[] = $book->id ?>
             <div class="book-row">
                 <div class="book-notice">
                     <a href="{{route('product.show', ['id'=>$book->id])}}"><img src="{{$book->options->image}}"></a>
@@ -48,9 +49,9 @@
             <p>312312 City</p>
             <p>Country</p>
             <p>32130123</p>
-            <button onclick="" id="add-btn">Add an address</button>
+            <button id="add-btn">Add an address</button>
             @if (session()->has('id'))
-            <button onclick="" id="select-btn">Select an address</button>
+            <button id="select-btn">Select an address</button>
             @endif
         </div>
         <div class="row">
@@ -61,7 +62,7 @@
             <div class="checkout-label">SUB TOTAL TTC (€)</div>
             <div class="checkout-price">{{$subtotal}}€</div>
         </div>
-        <a href=""><button id="checkout-btn">Payment</button></a>
+        <button onclick="addOrder();" id="checkout-btn">Payment</button>
     </div>
 </div>
 
@@ -126,6 +127,7 @@
                 <p>{{$address->getFullCity()}}</p>
                 <p>{{$address['country']}}</p>
                 <p>{{$address['phone_number']}}</p>
+                <button onclick="selectAddress({{$address}})" class="select-address-btn">Select</button>
             </div>
         @endforeach
     </div>
@@ -314,7 +316,7 @@
             background-color: #234c4b;
         }
 
-        #add-btn, #save-btn{
+        #add-btn, #save-btn, .select-address-btn{
             border: 2px solid black;
             background-color: transparent;
             padding: 6px 14px;
@@ -446,6 +448,8 @@
         const address_p = document.querySelectorAll('.address-container p');
         const select_addresses_container = document.getElementById('select-addresses-container');
 
+
+
         add_btn.addEventListener('click', function(){
             form_address.style.display = 'flex';
         });
@@ -479,6 +483,39 @@
         close_address_btn.addEventListener('click', function(event){
             select_addresses_container.style.display = 'none';
         });
+
+        function selectAddress(address){
+            address_p[0].innerHTML = address['company']
+            address_p[1].innerHTML = address['first_name'] + " " + address['last_name'];
+            address_p[2].innerHTML = address['address'];
+            address_p[3].innerHTML = address['postal_code'] + " " + address['city'];
+            address_p[4].innerHTML = address['country'];
+            address_p[5].innerHTML = address['phone_number'];
+            select_addresses_container.style.display = 'none';
+        }
+
+        function addOrder(){
+            $.ajax({
+                type: "POST",
+                url: "order/add",
+                data:{
+                    _token: "{{csrf_token()}}",
+                    company: address_p[0].innerHTML,
+                    full_name :address_p[1].innerHTML,
+                    address: address_p[2].innerHTML,
+                    city: address_p[3].innerHTML,
+                    country: address_p[4].innerHTML,
+                    phone_number: address_p[5].innerHTML,
+                    user_id: {{session()->get('id')}},
+                    total: {{$subtotal}},
+                    //Fix this issue
+                    book_id_order: {{json_encode($book_id_order)}}
+                },
+                success: function() {
+                    {{--window.location.href = "{{route('home.index')}}";--}}
+                }
+            })
+        }
 
         inputs.forEach(function(item){
             item.addEventListener('focus', function(){
