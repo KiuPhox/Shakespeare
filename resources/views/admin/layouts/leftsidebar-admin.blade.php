@@ -1,24 +1,5 @@
 <!-- ========== Left Sidebar Start ========== -->
-<div style="width: 200px" class="left-side-menu">
-    <!-- LOGO -->
-    <a href="index.html" class="logo text-center logo-light">
-                    <span class="logo-lg">
-                        <img src="assets/images/logo.png" alt="" height="16">
-                    </span>
-        <span class="logo-sm">
-                        <img src="assets/images/logo_sm.png" alt="" height="16">
-                    </span>
-    </a>
-
-    <!-- LOGO -->
-    <a href="index.html" class="logo text-center logo-dark">
-                    <span class="logo-lg">
-                        <img src="assets/images/logo-dark.png" alt="" height="16">
-                    </span>
-        <span class="logo-sm">
-                        <img src="assets/images/logo_sm_dark.png" alt="" height="16">
-                    </span>
-    </a>
+<div style="width: 50px; height: 400px; right: 40px; " class="left-side-menu">
 
     <div class="h-100" id="left-side-menu-container" data-simplebar>
 
@@ -71,4 +52,5 @@
     <!-- Sidebar -left -->
 
 </div>
+
 <!-- Left Sidebar End -->

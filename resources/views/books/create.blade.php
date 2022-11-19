@@ -57,7 +57,7 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Books</a></li>
+                                    <li class="breadcrumb-item"><a href="{{route('books.index')}}">Books</a></li>
                                     <li class="breadcrumb-item active">Add Book Product</li>
                                 </ol>
                             </div>

@@ -16,7 +16,7 @@ class BookController extends Controller
 
         $books = Book::query()
             ->where('title', operator: 'like', value: '%'.$search.'%')
-            ->paginate(5)
+            ->paginate(3)
             ->appends('q', $search);
         return view('books.index', [
             'books' => $books,

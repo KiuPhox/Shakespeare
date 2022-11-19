@@ -4,9 +4,16 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<h1 class="mt-5">
-    This is list of books
-</h1>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Books</h4>
+        </div>
+    </div>
+</div>
+
 <caption>
     <div class="app-search dropdown d-none d-lg-block mb-3 mt-3">
         <form>
@@ -52,12 +59,12 @@
     </thead>
 
     @foreach($books as $book)
-        <tr>
-            <td>{{ $book->id}}</td>
+        <tr >
+            <td >{{ $book->id}}</td>
             <td>{{ $book->title }}</td>
             <td>{{ $book->author }}</td>
             <td>{{ $book->getSummaryDescription() }}</td>
-            <td><img height="200" src="{{ $book->image }}"></td>
+            <td><img height="150" src="{{ $book->image }}"></td>
             <td>{{ $book->price }}</td>
             <td>{{ $book->publisher() }}</td>
             <td>{{ $book->getPublicationDate()}}</td>
@@ -74,7 +81,7 @@
                 <form action="{{ route('books.destroy', $book) }}" method="POST">
                     @csrf
                     @method('Delete')
-                    <button class="btn btn-outline-danger">Delete</button>
+                    <button  class="btn btn-outline-danger">Delete</button>
                 </form>
             </td>
 
@@ -96,6 +103,8 @@
         right: 2rem;
         bottom: 2rem;
     }
+
+    .table td{ height: 14px };
 </style>
 @stop
 

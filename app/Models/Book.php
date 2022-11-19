@@ -34,7 +34,7 @@ class Book extends Model
 
     public function getSummaryDescription(){
         if ($this->description != null) {
-            return substr($this->description, 0, 200).'...';
+            return substr($this->description, 0, 100).'...';
         }
         return $this->description;
     }
