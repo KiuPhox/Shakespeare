@@ -80,6 +80,8 @@ Route::get('/checkout/', [CheckOutController::class, 'index'])->name('checkout.i
 //email
 Route::get('/auth/verify-email/{verification_code}', [AuthController::class, 'verifyEmail'])->name('verify_email');
 
+//forgot password
+Route::get('/forgot-password', [AuthController::class, 'getForgotPassword'])->name('getForgotPassword');
 
 
 //Route::group(['prefix' => 'books', 'as' => 'book.'], function () {
