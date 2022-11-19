@@ -29,9 +29,12 @@ class AuthController extends Controller
             $user = User::query()
                 ->where('email', $request->get('email'))
                 ->firstOrFail();
-            if (!Hash::check($request->get('password'), $user->password)) {
-                throw new Exception('invalid password');
-            }
+
+                if (!Hash::check($request->get('password'), $user->password)) {
+                    throw new Exception('invalid password');
+                } else if (!$user->email_verified_at) {
+                    throw new Exception('email is not verified');
+                }
 
 
             session()->put('id', $user->id);
@@ -111,6 +114,7 @@ class AuthController extends Controller
                     'level' => 1,
                     'password' => $hashed_random_password,
                     'email' => $google_user->getEmail(),
+                    'email_verified_at' =>Carbon::now()
                 ]);
 
                 session()->put('id', $new_user->id);
