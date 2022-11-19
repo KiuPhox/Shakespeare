@@ -9,13 +9,6 @@ use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreBookRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-
     public function store(Request $request)
     {
         $request['user_id'] = session()->get('id');

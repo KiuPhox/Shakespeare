@@ -54,7 +54,6 @@
     document.addEventListener('click', function(event){
         if (!menu_account.contains(event.target) && !login_button.contains(event.target)){
             menu_account.style.display = 'none';
-            console.log('te');
         }
     })
 
