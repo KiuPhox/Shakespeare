@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAdminMiddleware;
@@ -70,7 +71,6 @@ Route::get('/product/{id}', [HomeController::class, 'show'])->name('product.show
 
 
 Route::get('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
-//Route::get('/cart/increase/{id}', [CartController::class, 'increase'])->name('cart.increase');
 Route::get('/cart/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease');
 Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
@@ -80,8 +80,13 @@ Route::get('/checkout/', [CheckOutController::class, 'index'])->name('checkout.i
 //email
 Route::get('/auth/verify-email/{verification_code}', [AuthController::class, 'verifyEmail'])->name('verify_email');
 
+
 //forgot password
 Route::get('/forgot-password', [AuthController::class, 'getForgotPassword'])->name('getForgotPassword');
+
+
+// Order
+Route::post('/order/add', [OrderController::class, 'store']);
 
 
 //Route::group(['prefix' => 'books', 'as' => 'book.'], function () {
