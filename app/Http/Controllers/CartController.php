@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -13,7 +14,11 @@ class CartController extends Controller
         $total = Cart::total();
         $subtotal = Cart::subtotal();
 
-        return view('user.home.cart', compact('carts', 'total', 'subtotal'));
+        $addresses = Address::query()->get()->where('user_id', '=', session()->get('id'));
+
+        return view('user.home.cart',
+            compact('carts', 'total', 'subtotal'),
+            ['addresses' => $addresses, 'total' => $total]);
     }
     public function add($id){
         $book = Book::find($id);

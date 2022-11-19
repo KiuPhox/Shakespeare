@@ -6,40 +6,53 @@
     @if (Cart::count() > 0)
 <div class="cart-container">
 
-    <table class="cart-table">
+    <div class="cart-table">
         @foreach($carts as $book)
-            <tr class="book-row">
-                <th class="book-notice">
-                    <img src="{{$book->options->image}}">
+            <div class="book-row">
+                <div class="book-notice">
+                    <a href="{{route('product.show', ['id'=>$book->id])}}"><img src="{{$book->options->image}}"></a>
                     <div class="book-information">
-                        <h1>{{$book->name}}</h1>
+                        <a href="{{route('product.show', ['id'=>$book->id])}}"><h1>{{$book->name}}</h1></a>
                         <h2>{{$book->options->author}}</h2>
                         <p>Isbn : {{$book->options->isbn}}</p>
                     </div>
-                </th>
-                <th class="book-detail">
+                </div>
+                <div class="book-detail">
                     <div class="price-label">Price</div>
                     <div class="price">{{$book->price}}.00 €</div>
-                </th>
-                <th class="book-detail">
+                </div>
+                <div class="book-detail">
                     <div class="price-label">Quantity</div>
                     <div class="price quantity-change">
                         <a href="{{route('cart.decrease', ['id'=>$book->rowId])}}">-</a>
                         {{$book->qty}}
                         <a href="{{route('cart.add', ['id'=>$book->id])}}">+</a>
                     </div>
-                </th>
-                <th class="book-detail">
+                </div>
+                <div class="book-detail">
                     <div class="price-label">Total</div>
                     <div class="price">{{$book->price * $book->qty}}.00 €</div>
-                </th>
-                <th>
+                </div>
+                <div>
                     <a href="{{route('cart.remove', ['id'=>$book->rowId])}}"><img style="width: 25px" src="https://cdn-icons-png.flaticon.com/512/1828/1828939.png"></a>
-                </th>
-            </tr>
+                </div>
+            </div>
         @endforeach
-    </table>
+    </div>
     <div class="checkout-container">
+        <div class="address-container">
+            <div class="address-label">Delivery address</div>
+            <p>Company</p>
+            <p>First Last Name</p>
+            <p>Address</p>
+            <p>312312 City</p>
+            <p>Country</p>
+            <p>32130123</p>
+            <button onclick="" id="add-btn">Add an address</button>
+            @if (session()->has('id'))
+            <button onclick="" id="select-btn">Select an address</button>
+            @endif
+        </div>
         <div class="row">
             <div class="checkout-label">Number of items</div>
             <div class="checkout-price">{{Cart::count()}}</div>
@@ -48,16 +61,114 @@
             <div class="checkout-label">SUB TOTAL TTC (€)</div>
             <div class="checkout-price">{{$subtotal}}€</div>
         </div>
-        <a href="{{route('checkout.index')}}"><button id="checkout-btn">Proceed to checkout</button></a>
+        <a href=""><button id="checkout-btn">Payment</button></a>
     </div>
 </div>
-    @else
-        <h2>Your cart is empty</h2>
-    @endif
+
+<form id="form-address" style="display: none;">
+    @csrf
+    <div class="form-header">
+        <h2>Edit an address</h2>
+        <img id="close-form-btn" src="https://cdn-icons-png.flaticon.com/512/660/660252.png">
+    </div>
+    <div  class="form-container">
+        <div class="form-row">
+            <div class="form-input">
+                <input name="first_name" type="text" placeholder="">
+                <div class="form-label">First name</div>
+            </div>
+            <div class="form-input">
+                <input name="last_name" type="text" placeholder="">
+                <div class="form-label">Full last name</div>
+            </div>
+        </div>
+        <div class="form-input">
+            <input name="company" type="text" placeholder="">
+            <div class="form-label">Company</div>
+        </div>
+        <div class="form-input">
+            <input name="address" type="text" placeholder="">
+            <div class="form-label">Address</div>
+        </div>
+        <div class="form-row">
+            <div class="form-input">
+                <input name="postal_code" type="text" placeholder="">
+                <div class="form-label">Postal Code</div>
+            </div>
+            <div class="form-input">
+                <input name="city" type="text" placeholder="">
+                <div class="form-label">City</div>
+            </div>
+            <div class="form-input">
+                <input name="country" type="text" placeholder="">
+                <div class="form-label">Country</div>
+            </div>
+        </div>
+        <div class="form-input">
+            <input name="phone_number" type="text" placeholder="">
+            <div class="form-label">Phone number</div>
+        </div>
+    </div>
+    <button type="button" id="save-btn">Save</button>
+</form>
+@if (session()->has('id'))
+<div id="select-addresses-container" class="select-addresses-container" style="display: none;">
+    <div class="form-header">
+        <h2>Select an address</h2>
+        <img id="close-address-btn" src="https://cdn-icons-png.flaticon.com/512/660/660252.png">
+    </div>
+    <div class="select-addresses-grid">
+        @foreach($addresses as $address)
+            <div class="select-address-container">
+                <p>{{$address['company']}}</p>
+                <p>{{$address->getFullName()}}</p>
+                <p>{{$address['address']}}</p>
+                <p>{{$address->getFullCity()}}</p>
+                <p>{{$address['country']}}</p>
+                <p>{{$address['phone_number']}}</p>
+            </div>
+        @endforeach
+    </div>
+</div>
+@endif
+@else
+    <h2>Your cart is empty</h2>
+@endif
 @stop
 
 @section('styles')
     <style>
+        .select-addresses-grid{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-column-gap: 80px;
+            grid-row-gap: 60px;
+            padding: 0;
+            margin: 20px;
+        }
+
+        .select-address-container{
+            border: 4px solid grey;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .select-address-container p{
+            font-family: "EBGaramond",serif;
+            font-weight: 100;
+            font-size: 1.2rem;
+            font-feature-settings: "onum";
+            font-variant-numeric: oldstyle-nums;
+            margin: 4px 0;
+        }
+
+        .select-addresses-container{
+            overflow: scroll;
+        }
+
         h2 {
             margin: 2rem auto;
             font-size: 2rem;
@@ -73,31 +184,33 @@
 
         .cart-container{
             display: flex;
-            margin-left: 5rem;
-            margin-top: 5rem;
+            width: 100%;
+            margin: 5rem auto;
+            justify-content: center;
+        }
+
+        .cart-table{
+            flex-basis: 60%;
+            display: flex;
+            flex-direction: column;
         }
 
         .checkout-container{
-            flex-basis: 40%;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            margin-left: -5rem;
-        }
-
-        table{
-            flex-basis: 100%;
         }
 
         .book-row{
             display: flex;
+            width: 100%;
             flex-direction: row;
             margin: 1.5rem 0;
         }
         .book-notice{
             display: flex;
             flex-direction: row;
-            width: 35%;
+            width: 45%;
         }
 
         .book-notice img{
@@ -114,6 +227,7 @@
         .book-information h1, .book-information h2{
             font-family: 'EB Garamond', serif;
             margin: 0;
+            text-align: left;
         }
 
         .book-information h1{
@@ -143,13 +257,19 @@
             justify-content: flex-start;
             align-items: flex-start;
             margin-left: 2rem;
+            margin-right: 1rem;
         }
 
-        .price-label, .checkout-label, #checkout-btn{
+        .price-label, .checkout-label, .address-label,
+        #checkout-btn, #select-btn, #add-btn, #save-btn{
             text-transform: uppercase;
             font-weight: 500;
             font-size: 1rem;
             letter-spacing: .1em;
+        }
+
+        .address-label{
+            margin-bottom: 1rem;
         }
 
         .checkout-label{
@@ -176,7 +296,7 @@
             cursor: pointer;
         }
 
-        #checkout-btn{
+        #checkout-btn, #select-btn{
             border: 2px solid #0b3937;
             background-color: #0b3937;
             color: white;
@@ -186,10 +306,206 @@
             transition: .3s all 1ms;
         }
 
-        #checkout-btn:hover{
+        #select-btn,#add-btn{
+            margin: 6px 0;
+        }
+
+        #checkout-btn:hover, #select-btn:hover{
             background-color: #234c4b;
         }
+
+        #add-btn, #save-btn{
+            border: 2px solid black;
+            background-color: transparent;
+            padding: 6px 14px;
+            text-transform: uppercase;
+            transition: all .3s cubic-bezier(.25,.8,.5,1);
+            cursor: pointer;
+        }
+
+        .address-container{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 10px 25px;
+            background-color: #f0efea;
+        }
+
+        .address-container p{
+            font-family: "EBGaramond",serif;
+            font-weight: 100;
+            font-size: 1.2rem;
+            font-feature-settings: "onum";
+            font-variant-numeric: oldstyle-nums;
+            margin: 4px 0;
+        }
+
+        .form-header{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-header img{
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        .form-header h2, .select-addresses-container h2{
+            font-size: 2rem;
+            font-family: "Swiss721",sans-serif;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        #form-address, .select-addresses-container{
+            width: 89%;
+            height: 80%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f0efea;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+        }
+
+        .form-container{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin: auto;
+        }
+
+        .form-row{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+
+        .form-row .form-input{
+            margin-right: 1.5rem;
+            flex-basis: 50%;
+        }
+
+        .form-row .form-input:last-child{
+            margin-right: 0;
+        }
+
+        .form-input{
+            margin: 1rem 0;
+        }
+
+        .form-input input {
+            border: none;
+            border-bottom: 1px solid grey;
+            width: 100%;
+            font-size: 1.3rem;
+            font-family: 'EB Garamond', serif;
+            background-color: transparent;
+        }
+
+        .form-input input:focus-visible {
+            border: none;
+            outline: none;
+            border-bottom: 2px solid black;
+        }
+
+        .form-input .form-label{
+            position: relative;
+            top: -1.8rem;
+            transition: all 0.3s ease;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            font-size: 1.3rem;
+            font-family: 'EB Garamond', serif;
+            color: grey;
+        }
     </style>
+@stop
+
+@section('scripts')
+    <script>
+        const inputs = document.querySelectorAll('.form-input input');
+        const form_labels = document.querySelectorAll('.form-input .form-label');
+        const form_address = document.getElementById('form-address');
+        const close_form_btn = document.getElementById('close-form-btn');
+        const close_address_btn = document.getElementById('close-address-btn');
+        const add_btn = document.getElementById('add-btn');
+        const save_btn = document.getElementById('save-btn');
+        const select_btn = document.getElementById('select-btn');
+        const address_p = document.querySelectorAll('.address-container p');
+        const select_addresses_container = document.getElementById('select-addresses-container');
+
+        add_btn.addEventListener('click', function(){
+            form_address.style.display = 'flex';
+        });
+
+        save_btn.addEventListener('click', function(){
+            form_address.style.display = 'none';
+            inputs.forEach(function(item){
+                item.blur();
+            })
+
+            address_p[0].innerHTML = inputs[2].value;
+            address_p[1].innerHTML = inputs[0].value + " " + inputs[1].value;
+            address_p[2].innerHTML = inputs[3].value;
+            address_p[3].innerHTML = inputs[4].value + " " + inputs[5].value;
+            address_p[4].innerHTML = inputs[6].value;
+            address_p[5].innerHTML = inputs[7].value;
+        });
+
+        close_form_btn.addEventListener('click', function(event){
+            form_address.style.display = 'none';
+            inputs.forEach(function(item){
+                item.value = "";
+                item.blur();
+            })
+        });
+
+        select_btn.addEventListener('click', function(event){
+            select_addresses_container.style.display = 'block';
+        });
+
+        close_address_btn.addEventListener('click', function(event){
+            select_addresses_container.style.display = 'none';
+        });
+
+        inputs.forEach(function(item){
+            item.addEventListener('focus', function(){
+                let form_label = this.parentElement.querySelector('.form-label');
+                form_label.style.top = '-3.3rem';
+                form_label.style.fontSize = '1rem'
+                form_label.style.color = 'black';
+            });
+
+            item.addEventListener('blur', function(){
+                let form_label = this.parentElement.querySelector('.form-label');
+                if (item.value === "") {
+                    form_label.style.top = '-1.8rem';
+                    form_label.style.fontSize = '1.3rem'
+                }
+                form_label.style.color = 'grey';
+            });
+        })
+
+        form_labels.forEach(function(item){
+            item.addEventListener('click', function(){
+                this.parentElement.querySelector('input').focus();
+            });
+        })
+
+    </script>
+
 @stop
 
 

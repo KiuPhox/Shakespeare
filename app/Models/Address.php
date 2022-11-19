@@ -22,4 +22,12 @@ class Address extends Model
         'phone_number',
         'user_id'
         ];
+
+    public function getFullName(){
+        return $this->first_name." ".$this->last_name;
+    }
+
+    public function getFullCity(){
+        return $this->postal_code." ".$this->city;
+    }
 }

@@ -19,22 +19,22 @@
                 <div class="account-addresses-container">
                     <div class="account-address">Your saved addresses are displayed here.</div>
                     <div class="addresses-grid">
-                        <div class="address-container">
-                            <p>Company</p>
-                            <p>Anh Tuan</p>
-                            <p>Address</p>
-                            <p>3213321 City</p>
-                            <p>Country</p>
-                            <p>0941974458</p>
-                        </div>
-                        <div class="address-container">
-                            <p>Company</p>
-                            <p>Anh Tuan</p>
-                            <p>Address</p>
-                            <p>3213321 City</p>
-                            <p>Country</p>
-                            <p>0941974458</p>
-                        </div>
+                        @foreach($addresses as $address)
+                            <div class="address-container">
+                                <p>{{$address['company']}}</p>
+                                <p>{{$address->getFullName()}}</p>
+                                <p>{{$address['address']}}</p>
+                                <p>{{$address->getFullCity()}}</p>
+                                <p>{{$address['country']}}</p>
+                                <p>{{$address['phone_number']}}</p>
+                                <button onclick="openAddressForm({{$address}});" class="edit-btn">Edit</button>
+                                <form action="{{ route('address.destroy', $address) }}" method="POST">
+                                    @csrf
+                                    @method('Delete')
+                                    <button id="delete-btn">Delete</button>
+                                </form>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <button id="new-address">New address</button>
@@ -42,8 +42,8 @@
         </div>
     </div>
 </div>
-
-<form id="form-address" style="display: none;">
+<form id="form-address" method="post" action="{{@route('address.store')}}" style="display: none;">
+    @csrf
     <div class="form-header">
         <h2>Edit an address</h2>
         <img id="close-btn" src="https://cdn-icons-png.flaticon.com/512/660/660252.png">
@@ -51,38 +51,38 @@
     <div  class="form-container">
         <div class="form-row">
             <div class="form-input">
-                <input type="text" placeholder="">
+                <input name="first_name" type="text" placeholder="">
                 <div class="form-label">First name</div>
             </div>
             <div class="form-input">
-                <input type="text" placeholder="">
+                <input name="last_name" type="text" placeholder="">
                 <div class="form-label">Full last name</div>
             </div>
         </div>
         <div class="form-input">
-            <input type="text" placeholder="">
+            <input name="company" type="text" placeholder="">
             <div class="form-label">Company</div>
         </div>
         <div class="form-input">
-            <input type="text" placeholder="">
+            <input name="address" type="text" placeholder="">
             <div class="form-label">Address</div>
         </div>
         <div class="form-row">
             <div class="form-input">
-                <input type="text" placeholder="">
+                <input name="postal_code" type="text" placeholder="">
                 <div class="form-label">Postal Code</div>
             </div>
             <div class="form-input">
-                <input type="text" placeholder="">
+                <input name="city" type="text" placeholder="">
                 <div class="form-label">City</div>
             </div>
             <div class="form-input">
-                <input type="text" placeholder="">
+                <input name="country" type="text" placeholder="">
                 <div class="form-label">Country</div>
             </div>
         </div>
         <div class="form-input">
-            <input type="text" placeholder="">
+            <input name="phone_number" type="text" placeholder="">
             <div class="form-label">Phone number</div>
         </div>
     </div>
@@ -297,14 +297,48 @@
         const new_address = document.getElementById('new-address');
         const form_address = document.getElementById('form-address');
         const close_btn = document.getElementById('close-btn')
+        const edit_buttons = document.querySelectorAll('.edit-btn');
 
         new_address.addEventListener('click', function(event){
             form_address.style.display = 'flex';
-        })
+            form_address.action = "{{@route('address.store')}}";
+            inputs.forEach(function(item){
+                item.blur();
+            })
+        });
+
+        function openAddressForm(address){
+            form_address.style.display = 'flex';
+            form_address.action = "address/update/" + address['id'];
+
+            inputs[0].value = address['first_name'];
+            inputs[1].value = address['last_name'];
+            inputs[2].value = address['company'];
+            inputs[3].value = address['address'];
+            inputs[4].value = address['postal_code'];
+            inputs[5].value = address['city'];
+            inputs[6].value = address['country'];
+            inputs[7].value = address['phone_number'];
+
+            inputs.forEach(function(item){
+                item.focus();
+            })
+        }
+
+        // edit_buttons.forEach(function(item, index){
+        //     item.addEventListener('click', function(event){
+        //         form_address.style.display = 'flex';
+        //         form_address.method = 'get';
+        //     });
+        // });
 
         close_btn.addEventListener('click', function(event){
             form_address.style.display = 'none';
-        })
+            inputs.forEach(function(item){
+                item.value = "";
+                item.blur();
+            })
+        });
 
         inputs.forEach(function(item){
             item.addEventListener('focus', function(){

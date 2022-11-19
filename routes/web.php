@@ -10,6 +10,7 @@ use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAdminMiddleware;
 use App\Http\Middleware\CheckLoginMiddleware;
+use App\Http\Controllers\AddressController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,12 @@ Route::group([
     Route::get('account', [UserController::class, 'account'])->name('account.index');
     Route::post('account', [UserController::class, 'saveAddress'])->name('process_save_address');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::resource('address', AddressController::class)->except(
+        'show, index, create, edit, update',
+    );
+
+    Route::post('/address/update/{id}', [AddressController::class, 'update']);
+
     Route::group([
         'middleware'=> CheckAdminMiddleware::class,
     ], function(){
