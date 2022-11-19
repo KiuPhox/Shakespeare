@@ -436,6 +436,7 @@
 @stop
 
 @section('scripts')
+    @if (Cart::count() > 0)
     <script>
         const inputs = document.querySelectorAll('.form-input input');
         const form_labels = document.querySelectorAll('.form-input .form-label');
@@ -542,7 +543,7 @@
         })
 
     </script>
-
+    @endif
 @stop
 
 
