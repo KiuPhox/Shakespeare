@@ -16,7 +16,7 @@ class PublisherController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->get('p');
+        $search = $request->get('q');
 
         $publishers = Publisher::query()
             ->where('name', 'like', '%'.$search.'%')

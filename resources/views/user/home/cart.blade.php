@@ -42,12 +42,12 @@
     <div class="checkout-container">
         <div class="address-container">
             <div class="address-label">Delivery address</div>
-            <p>Company</p>
-            <p>First + Last Name</p>
-            <p>Address</p>
-            <p>Postal Code + City</p>
-            <p>Country</p>
-            <p>Phone Number</p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
             <button id="add-btn">Add an address</button>
             @if (session()->has('id'))
             <button id="select-btn">Select an address</button>
@@ -460,6 +460,7 @@
 
         save_btn.addEventListener('click', function(){
             form_address.style.display = 'none';
+
             inputs.forEach(function(item){
                 item.blur();
             })
@@ -602,9 +603,14 @@
                     @endif
                     total: {{$subtotal}},
                 },
-                success: function() {
-                    window.location.href = "{{route('home.index')}}";
-                }
+                success: function(response) {
+                    if (response['success'] === 'failed'){
+
+                    }
+                    else{
+                        window.location.href = "{{route('home.index')}}";
+                    }
+                },
             })
         }
 

@@ -302,6 +302,7 @@
         new_address.addEventListener('click', function(event){
             form_address.style.display = 'flex';
             form_address.action = "{{@route('address.store')}}";
+
             inputs.forEach(function(item){
                 item.blur();
             })

@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->get('u');
+        $search = $request->get('q');
 
         $users = User::query()
             ->where('name', operator: 'like', value: '%'.$search.'%')
@@ -102,7 +102,9 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-
+        if ($user->level === 0){
+            return redirect()->back();
+        }
         return view('admin.users.edit', [
             'user' => $user,
         ]);
@@ -121,9 +123,20 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        PasswordReset::where('user_id', $user->id)->delete();
+        if ($user->level === 1){
+            PasswordReset::where('user_id', $user->id)->delete();
 
-        $user->delete();
+            $orders = Order::query()->get()->where('user_id', $user->id);
+
+            Address::where('user_id', $user->id)->delete();
+
+            foreach ($orders as $order){
+                OrderDetail::where('order_id', $order->id)->delete();
+                $order->delete();
+            }
+
+            $user->delete();
+        }
         return redirect()->route('users.index');
     }
 }

@@ -54,7 +54,7 @@
                 <td>
                     <form action="{{ route('users.edit', $user) }}" method="GET">
                         @method('Edit')
-                        <button class="btn btn-outline-info">Edit</button>
+                        <button class="btn btn-outline-info" @if ($user->level === 0) disabled @endif >Edit</button>
                     </form>
                 </td>
 
@@ -63,7 +63,7 @@
                     <form action="{{ route('users.destroy', $user) }}" method="POST">
                         @csrf
                         @method('Delete')
-                        <button class="btn btn-outline-danger">Delete</button>
+                        <button class="btn btn-outline-danger" @if ($user->level === 0) disabled @endif>Delete</button>
                     </form>
                 </td>
 

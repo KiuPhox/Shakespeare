@@ -35,7 +35,7 @@
         <tr>
             <th>#</th>
             <th>User's Name</th>
-            <th>User's ID</th>
+            <th>Customer's Name</th>
             <th>Company</th>
             <th>Address</th>
             <th>City</th>
@@ -43,34 +43,34 @@
             <th>Phone Number</th>
             <th>Cash</th>
             <th>Status</th>
-            <th>Confirm</th>
-            <th></th>
-            <th></th>
+            <th>Verify</th>
+            <th>View</th>
+            <th>Delete</th>
         </tr>
         </thead>
 
         @foreach($orders as $order)
             <tr>
                 <td>{{ $order->id}}</td>
+                <td>{{ $order->getUserName() }}</td>
                 <td>{{ $order->full_name }}</td>
-                <td>{{ $order->user_id }}</td>
                 <td>{{ $order->company }}</td>
                 <td>{{ $order->address }}</td>
                 <td>{{ $order->city }}</td>
                 <td>{{ $order->country }}</td>
                 <td>{{ $order->phone_number }}</td>
                 <td>{{ $order->total }}</td>
-                <td>{{ $order->status }}</td>
+                <td>{{ $order->getStatus() }}</td>
 
                 @if ($order->status === 0)
                 <td>
-                    <a href="">
-                        <button class="btn btn-outline-info">Confirm</button>
+                    <a href="{{route('orders.verify', ['order' => $order])}}">
+                        <button class="btn btn-outline-info">Verify</button>
                     </a>
                 </td>
-                    @else
+                @else
                     <td>
-                        <a href="">
+                        <a href="{{route('orders.redo', ['order' => $order])}}">
                             <button class="btn btn-outline-info">Redo</button>
                         </a>
                     </td>

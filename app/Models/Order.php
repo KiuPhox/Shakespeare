@@ -33,4 +33,12 @@ class Order extends Model
        }
        return 'Confirmed';
     }
+
+    public function getUserName(){
+        if ($this->user_id === -1){
+            return 'Unknown User';
+        }
+        $user = User::find($this->user_id);
+        return $user->name;
+    }
 }

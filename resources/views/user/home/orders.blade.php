@@ -14,15 +14,19 @@
                     <th>Reference</th>
                     <th>Total</th>
                     <th>Status</th>
+                    <th>Cancel</th>
                 </tr>
                 </thead>
                 <tbody>
                     @foreach($orders as $order)
                     <tr>
                         <td>{{$order->getOrderDate()}}</td>
-                        <td><a href="{{route('user.orders.show', ['id' => $order->id])}}">Details</a></td>
+                        <td><a style="text-decoration: underline"href="{{route('user.orders.show', ['id' => $order->id])}}">Details</a></td>
                         <td>{{$order['total']}}.00 €</td>
                         <td>{{$order->getStatus()}}</td>
+                        @if ($order->status === 0)
+                            <td><a style="color: red; text-decoration: underline" href="{{route('user.orders.destroy', ['order' => $order])}}">Cancel</a></td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
