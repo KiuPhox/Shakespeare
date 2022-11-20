@@ -43,11 +43,11 @@
         <div class="address-container">
             <div class="address-label">Delivery address</div>
             <p>Company</p>
-            <p>First Last Name</p>
+            <p>First + Last Name</p>
             <p>Address</p>
-            <p>312312 City</p>
+            <p>Postal Code + City</p>
             <p>Country</p>
-            <p>32130123</p>
+            <p>Phone Number</p>
             <button id="add-btn">Add an address</button>
             @if (session()->has('id'))
             <button id="select-btn">Select an address</button>

@@ -16,4 +16,13 @@ class OrderDetail extends Model
         'product_id',
         'amount',
         ];
+
+    public function getBook(){
+        return Book::query()->find($this->product_id);
+    }
+
+    public function getSubTotal(){
+        $book = Book::query()->find($this->product_id);
+        return $book->price * $this->amount;
+    }
 }

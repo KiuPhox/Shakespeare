@@ -14,6 +14,7 @@
                 <div id="login-button" href="">{{session()->get('name')}}
                     <div id="menu-account">
                         <a href="{{route('account.index')}}">Account</a>
+                        <a href="{{route('user.orders.index')}}">Orders</a>
                         @if (session()->get('level') === 0)
                         <a href="{{route('books.index')}}">Dashboard</a>
                         @endif
@@ -74,7 +75,7 @@
         top: 3rem;
         right: -2rem;
         background-color: white;
-        height: 20px;
+        height: 40px;
         width: 100px;
         padding: 1.5rem;
         justify-content: center;

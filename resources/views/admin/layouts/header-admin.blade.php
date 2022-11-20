@@ -9,17 +9,10 @@
         </a>
 
         <ul class="list-unstyled topbar-right-menu float-right mb-0">
-
-
-
             <li class="dropdown notification-list">
                 <a style="background: none; border: none; outline: none; letter-spacing: .1rem; cursor: pointer; margin-top: 5px; padding: 0 20px; line-height: 50px;" class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" id="topbar-userdrop" href="#" role="button" aria-haspopup="true"
                    aria-expanded="false">
-
-                    <span>
-                                <span class="account-user-name" style="font-size: 20px; ">{{session()->get('name')}}</span>
-                                <span class="account-position">Admin</span>
-                            </span>
+                    <span class="account-user-name" style="font-size: 20px; ">{{session()->get('name')}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown" aria-labelledby="topbar-userdrop">
                     <!-- item-->
