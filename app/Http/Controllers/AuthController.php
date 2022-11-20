@@ -43,7 +43,7 @@ class AuthController extends Controller
             session()->put('name', $user->name);
             session()->put('level', $user->level);
 
-            return redirect()->route('books.index');
+            return redirect()->route('home.index');
         }
         catch (Throwable $e) {
             return redirect()->route('login');
