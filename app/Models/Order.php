@@ -21,4 +21,15 @@ class Order extends Model
         'total',
         'user_id'
         ];
+
+    public function getOrderDate(){
+        return date_format(date_create($this->created_at), "d/m/Y");
+    }
+
+    public function getStatus(){
+       if ($this->status === 0){
+           return 'Pending';
+       }
+       return 'Confirmed';
+    }
 }

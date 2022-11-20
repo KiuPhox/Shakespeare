@@ -30,16 +30,12 @@
 </caption>
 
 
-    <div class="row mb-2">
-        <div class="col-sm-4">
-            <a href="{{route('books.create')}}" class="btn btn-danger mb-2 add-book-button"><i class="mdi mdi-plus-circle mr-2"></i> Add Products</a>
-        </div>
-    </div>
+
 
 
 </a>
 <table class="table table-centered table-striped mb-0 text-center" >
-    <thead class="thead" style="background-color: #f0efea">
+    <thead class="thead">
     <tr>
 
         <th>#</th>
@@ -52,7 +48,6 @@
         <th>Publication Date</th>
         <th>Page Quantity</th>
         <th>Quantity</th>
-        <th>ISBN</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
@@ -70,7 +65,6 @@
             <td>{{ $book->getPublicationDate()}}</td>
             <td>{{ $book->page_quantity }}</td>
             <td>{{ $book->quantity }}</td>
-            <td>{{ $book->isbn }}</td>
             <td>
                 <form action="{{ route('books.edit', $book) }}" method="GET">
                     @method('Edit')
@@ -90,18 +84,28 @@
     @endforeach
 </table>
 
-<nav>
+<nav class="pagination-nav">
     <ul class="pagination pagination-rounded mb-5 mt-5">
         {{$books->links()}}
     </ul>
+    <a href="{{route('books.create')}}" class="btn btn-danger mb-2 add-book-button"><i class="mdi mdi-plus-circle mr-2"></i> Add Products</a>
 </nav>
 @stop
 @section('styles')
 <style>
+    table thead{
+        background-color: #0b3937;
+        color: white;
+    }
+
     .add-book-button{
-        position: fixed;
-        right: 2rem;
-        bottom: 2rem;
+        height: 40px;
+    }
+
+    .pagination-nav{
+        display : flex;
+        justify-content : space-between;
+        align-items: center;
     }
 
     .table td{ height: 14px };

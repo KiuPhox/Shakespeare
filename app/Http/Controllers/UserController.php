@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\PasswordReset;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\User;
 use App\Models\Address;
 use App\Http\Controllers\Controller;
@@ -37,6 +39,26 @@ class UserController extends Controller
             return view('user.home.account', [
                 'account' => $account,
                 'addresses' => $addresses
+            ]);
+        }
+        return redirect()->route('home.index');
+    }
+
+    public function orders(){
+        if (session()->has('id')){
+            $orders = Order::query()->get()->where('user_id', session()->get('id'));
+            return view('user.home.orders', [
+                'orders' => $orders,
+            ]);
+        }
+        return redirect()->route('home.index');
+    }
+
+    public function showOrderDetails($id){
+        if (session()->has('id')){
+            $order_details = OrderDetail::query()->get()->where('order_id', $id);
+            return view('user.home.order_detail', [
+                'order_details' => $order_details,
             ]);
         }
         return redirect()->route('home.index');

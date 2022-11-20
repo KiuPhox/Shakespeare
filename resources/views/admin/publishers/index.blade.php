@@ -35,7 +35,7 @@
 
 
     <table class="table table-centered table-striped mb-0 text-center">
-        <thead class="thead" style="background-color: #f0efea">
+        <thead class="thead">
         <tr>
             <th>#</th>
             <th>Name</th>
@@ -75,3 +75,12 @@
     </nav>
 
 @endsection
+
+@section('styles')
+    <style>
+        table thead{
+            background-color: #0b3937;
+            color: white;
+        }
+    </style>
+@stop

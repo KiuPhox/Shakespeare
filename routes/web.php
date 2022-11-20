@@ -40,6 +40,8 @@ Route::group([
     'middleware'=> CheckLoginMiddleware::class,
 ], function(){
     Route::get('account', [UserController::class, 'account'])->name('account.index');
+    Route::get('orders', [UserController::class, 'orders'])->name('user.orders.index');
+    Route::get('orders/{id}', [UserController::class, 'showOrderDetails'])->name('user.orders.show');
     Route::post('account', [UserController::class, 'saveAddress'])->name('process_save_address');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('address', AddressController::class)->except(
