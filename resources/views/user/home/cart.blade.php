@@ -8,7 +8,6 @@
 
     <div class="cart-table">
         @foreach($carts as $book)
-            <?php $book_id_order[] = $book->id ?>
             <div class="book-row">
                 <div class="book-notice">
                     <a href="{{route('product.show', ['id'=>$book->id])}}"><img src="{{$book->options->image}}"></a>
@@ -25,17 +24,17 @@
                 <div class="book-detail">
                     <div class="price-label">Quantity</div>
                     <div class="price quantity-change">
-                        <a href="{{route('cart.decrease', ['id'=>$book->rowId])}}">-</a>
-                        {{$book->qty}}
-                        <a href="{{route('cart.add', ['id'=>$book->id])}}">+</a>
+                        <a onclick = "decreaseBook('{{$book->rowId}}', this);">-</a>
+                        <span>{{$book->qty}}</span>
+                        <a onclick="increaseBook({{$book->id}}, this)">+</a>
                     </div>
                 </div>
                 <div class="book-detail">
                     <div class="price-label">Total</div>
-                    <div class="price">{{$book->price * $book->qty}}.00 €</div>
+                    <div class="price book-subtotal">{{$book->price * $book->qty}}.00 €</div>
                 </div>
                 <div>
-                    <a href="{{route('cart.remove', ['id'=>$book->rowId])}}"><img style="width: 25px" src="https://cdn-icons-png.flaticon.com/512/1828/1828939.png"></a>
+                    <a class="remove-book" onclick="removeBookFromCart('{{$book->rowId}}', this);"><img style="width: 25px" src="https://cdn-icons-png.flaticon.com/512/1828/1828939.png"></a>
                 </div>
             </div>
         @endforeach
@@ -56,11 +55,11 @@
         </div>
         <div class="row">
             <div class="checkout-label">Number of items</div>
-            <div class="checkout-price">{{Cart::count()}}</div>
+            <div id="checkout-item" class="checkout-price">{{Cart::count()}}</div>
         </div>
         <div class="row">
             <div class="checkout-label">SUB TOTAL TTC (€)</div>
-            <div class="checkout-price">{{$subtotal}}€</div>
+            <div id="checkout-subtotal" class="checkout-price">{{$subtotal}}€</div>
         </div>
         <button onclick="addOrder();" id="checkout-btn">Payment</button>
     </div>
@@ -140,6 +139,10 @@
 
 @section('styles')
     <style>
+        .remove-book{
+            cursor: pointer;
+        }
+
         .select-addresses-grid{
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -436,15 +439,16 @@
 @stop
 
 @section('scripts')
+    @if (Cart::count() > 0)
     <script>
         const inputs = document.querySelectorAll('.form-input input');
         const form_labels = document.querySelectorAll('.form-input .form-label');
         const form_address = document.getElementById('form-address');
         const close_form_btn = document.getElementById('close-form-btn');
-        const close_address_btn = document.getElementById('close-address-btn');
+
         const add_btn = document.getElementById('add-btn');
         const save_btn = document.getElementById('save-btn');
-        const select_btn = document.getElementById('select-btn');
+
         const address_p = document.querySelectorAll('.address-container p');
         const select_addresses_container = document.getElementById('select-addresses-container');
 
@@ -476,6 +480,10 @@
             })
         });
 
+        @if (session()->has('id'))
+        const select_btn = document.getElementById('select-btn');
+        const close_address_btn = document.getElementById('close-address-btn');
+
         select_btn.addEventListener('click', function(event){
             select_addresses_container.style.display = 'block';
         });
@@ -483,6 +491,9 @@
         close_address_btn.addEventListener('click', function(event){
             select_addresses_container.style.display = 'none';
         });
+        @endif
+
+
 
         function selectAddress(address){
             address_p[0].innerHTML = address['company']
@@ -492,6 +503,86 @@
             address_p[4].innerHTML = address['country'];
             address_p[5].innerHTML = address['phone_number'];
             select_addresses_container.style.display = 'none';
+        }
+
+        function increaseBook(id, e){
+            $.ajax({
+                type:"GET",
+                url: "cart/add/" + id,
+                success: function(response){
+                    document.getElementById('cart-count').innerHTML = response['cart_count'];
+                    document.getElementById('checkout-item').innerHTML = response['cart_count'];
+                    document.getElementById('checkout-subtotal').innerHTML = response['cart_subtotal'] + "€";
+
+                    Object.entries(response['cart']).forEach(([key, value]) => {
+                       if (value['id'] === id){
+                           e.parentElement.querySelector('span').innerHTML = value['qty'];
+                           e.closest('.book-row').querySelector('.book-subtotal').innerHTML = value['subtotal'] + ".00 €";
+                       }
+                    });
+                }
+            })
+        }
+
+        function decreaseBook(id, e){
+            $.ajax({
+                type:"GET",
+                url: "cart/decrease/" + id,
+                success: function(response){
+                    document.getElementById('cart-count').innerHTML = response['cart_count'];
+
+
+                    if (response['cart_count'] === 0){
+                        document.querySelector('.cart-container').remove();
+                        select_addresses_container.remove();
+                        form_address.remove();
+
+                        let empty_element = document.createElement('h2');
+                        empty_element.innerHTML = 'Your cart is empty';
+
+                        document.body.insertBefore(empty_element, document.querySelector('.footer'));
+                    }else {
+                        document.getElementById('checkout-item').innerHTML = response['cart_count'];
+                        document.getElementById('checkout-subtotal').innerHTML = response['cart_subtotal'] + "€";
+                        if (e.parentElement.querySelector('span').innerHTML === "1"){
+                            e.closest('.book-row').remove();
+                        }
+                        else{
+                            Object.entries(response['cart']).forEach(([key, value]) => {
+                                if (value['rowId'] === id){
+                                    e.parentElement.querySelector('span').innerHTML = value['qty'];
+                                    e.closest('.book-row').querySelector('.book-subtotal').innerHTML = value['subtotal'] + ".00 €";
+                                }
+                            });
+                        }
+
+                    }
+                }
+            })
+        }
+
+        function removeBookFromCart(id, e){
+            $.ajax({
+                type: "GET",
+                url: "cart/remove/" + id,
+                success: function (response) {
+                    e.closest('.book-row').remove();
+                    document.getElementById('cart-count').innerHTML = response['cart_count'];
+                    document.getElementById('checkout-item').innerHTML = response['cart_count'];
+                    document.getElementById('checkout-subtotal').innerHTML = response['cart_subtotal'] + "€";
+
+                    if (response['cart_count'] === 0){
+                        document.querySelector('.cart-container').remove();
+                        select_addresses_container.remove();
+                        form_address.remove();
+
+                        let empty_element = document.createElement('h2');
+                        empty_element.innerHTML = 'Your cart is empty';
+
+                        document.body.insertBefore(empty_element, document.querySelector('.footer'));
+                    }
+                }
+            });
         }
 
         function addOrder(){
@@ -506,13 +597,13 @@
                     city: address_p[3].innerHTML,
                     country: address_p[4].innerHTML,
                     phone_number: address_p[5].innerHTML,
+                    @if (session()->has('id'))
                     user_id: {{session()->get('id')}},
+                    @endif
                     total: {{$subtotal}},
-                    //Fix this issue
-                    book_id_order: {{json_encode($book_id_order)}}
                 },
                 success: function() {
-                    {{--window.location.href = "{{route('home.index')}}";--}}
+                    window.location.href = "{{route('home.index')}}";
                 }
             })
         }
@@ -542,7 +633,7 @@
         })
 
     </script>
-
+    @endif
 @stop
 
 

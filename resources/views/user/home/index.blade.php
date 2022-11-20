@@ -22,7 +22,7 @@
                     <p>{{$book->price}}.00 €</p>
                 </div>
 
-                <a href="{{route('cart.add', ['id'=>$book->id])}}" class="add-to-cart-container">
+                <a onclick="addToCart({{$book->id}});" class="add-to-cart-container">
                     <img src="{{asset('img/cart.svg')}}">
                     <span>Add to cart</span>
                 </a>
@@ -131,5 +131,17 @@
         }
     </style>
 @stop
-
+@section('scripts')
+    <script>
+        function addToCart(id){
+            $.ajax({
+                type:"GET",
+                url: "cart/add/" + id,
+                success: function(response){
+                    document.getElementById('cart-count').innerHTML = response['cart_count'];
+                }
+            })
+        }
+    </script>
+@stop
 

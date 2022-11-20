@@ -8,7 +8,7 @@
         </form>
         <a href = "{{route('cart.index')}}" id="shopping-cart-container">
             <img src="{{asset('img/cart.svg')}}">
-            <span class="cart-count">{{Cart::count()}}</span>
+            <span id="cart-count" class="cart-count">{{Cart::count()}}</span>
         </a>
         @if (session()->has('name'))
                 <div id="login-button" href="">{{session()->get('name')}}
