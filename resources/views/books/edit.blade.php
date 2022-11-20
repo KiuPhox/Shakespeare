@@ -62,10 +62,10 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Books</a></li>
-                                    <li class="breadcrumb-item active">Add Book Product</li>
+                                    <li class="breadcrumb-item active">Edit Book Product</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Add Book Products</h4>
+                            <h4 class="page-title">Edit Book Products</h4>
                         </div>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
         </div> <!-- end wrapper-->
     </div>
     <!-- END Container -->
-
+</div>
     <script src="{{asset('admin/js/vendor.min.js')}}"></script>
     <script src="{{asset('admin/js/app.min.js')}}"></script>
 

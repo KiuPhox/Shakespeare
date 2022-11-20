@@ -30,7 +30,7 @@
 <div class="container-fluid">
 
     <!-- Begin page -->
-    <div class="wrapper" style="max-width: 100%">
+    <div class="wrapper" >
 
         <!-- ========== Left Sidebar Start ========== -->
         @include('admin.layouts.leftsidebar-admin')

@@ -13,13 +13,13 @@
     </div>
 
     <caption>
-        <div class="app-search dropdown d-none d-lg-block mt-2 mb-3">
+        <div class="app-search dropdown d-none d-lg-block mb-3 mt-3">
             <form>
                 <div class="input-group">
-                    <input type="search" name="u" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
+                    <input type="search" name="q" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
                     <span class="mdi mdi-magnify search-icon"></span>
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">Search</button>
+                        <button class="btn" style="background-color: #f0efea" type="submit">Search</button>
                     </div>
                 </div>
 
@@ -35,7 +35,7 @@
 
 
     <table class="table table-centered table-striped mb-0 text-center">
-        <thead class="thead-dark">
+        <thead class="thead" style="background-color: #f0efea">
         <tr>
             <th>#</th>
             <th>Name</th>

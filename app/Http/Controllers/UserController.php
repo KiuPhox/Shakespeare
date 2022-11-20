@@ -76,27 +76,23 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(User $user)
     {
-        //
+
+        return view('admin.users.edit', [
+            'user' => $user,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, User $user)
     {
-        //
+        //$book->update($request->except('_token', 'method'));
+        //        return redirect()->route('books.index');
+        $user->update($request->except('_token', 'method'));
+        dd($request->all());
+        //return redirect()->route('users.index');
+
     }
 
 

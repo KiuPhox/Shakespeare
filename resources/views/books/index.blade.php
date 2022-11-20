@@ -21,7 +21,7 @@
                 <input type="search" name="q" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
                 <span class="mdi mdi-magnify search-icon"></span>
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">Search</button>
+                    <button class="btn" style="background-color: #f0efea" type="submit">Search</button>
                 </div>
             </div>
 
@@ -38,8 +38,8 @@
 
 
 </a>
-<table class="table table-centered table-striped mb-0 text-center">
-    <thead class="thead-dark">
+<table class="table table-centered table-striped mb-0 text-center" >
+    <thead class="thead" style="background-color: #f0efea">
     <tr>
 
         <th>#</th>

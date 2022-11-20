@@ -13,13 +13,13 @@
     </div>
 
     <caption>
-        <div class="app-search dropdown d-none d-lg-block">
+        <div class="app-search dropdown d-none d-lg-block mb-3 mt-3">
             <form>
                 <div class="input-group">
-                    <input type="search" name="u" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
+                    <input type="search" name="q" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
                     <span class="mdi mdi-magnify search-icon"></span>
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">Search</button>
+                        <button class="btn" style="background-color: #f0efea" type="submit">Search</button>
                     </div>
                 </div>
 
@@ -30,13 +30,16 @@
 
 
 
-    <table class="table table-centered table-striped mb-0 text-center">
-        <thead class="thead-dark">
+    <table class="table table-centered table-striped mb-0 text-center" style="max-width: 100%;
+    overflow-x: auto;
+    display: block;">
+        <thead class="thead" style="background-color: #f0efea">
         <tr>
             <th>#</th>
             <th>Name</th>
             <th>Email</th>
             <th>Level</th>
+            <th>Edit</th>
             <th>Delete</th>
         </tr>
         </thead>
@@ -46,7 +49,16 @@
                 <td>{{ $user->id}}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
-                <td>{{ $user->level }}</td>
+                @if( $user->level ===0)
+                <td>Admin</td>
+                @else <td>User</td>
+                @endif
+                <td>
+                    <form action="{{ route('users.edit', $user) }}" method="GET">
+                        @method('Edit')
+                        <button class="btn btn-outline-info">Edit</button>
+                    </form>
+                </td>
 
 
                 <td>
