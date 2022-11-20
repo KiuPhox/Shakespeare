@@ -22,13 +22,24 @@
     <div id="add-to-cart-container">
         <p>Available Online</p>
         <img src="{{asset('img/cart.svg')}}">
-        <a href="{{route('cart.add', ['id'=>$book->id])}}" id="add-to-cart-button">Add to cart</a>
+        <a onclick="addToCart({{$book->id}})" id="add-to-cart-button">Add to cart</a>
         <span>We ship worldwide</span>
     </div>
 </div>
 @stop
 
 @section('scripts')
+    <script>
+        function addToCart(id){
+            $.ajax({
+                type:"GET",
+                url: "/Shakespeare/public/cart/add/" + id,
+                success: function(response){
+                    document.getElementById('cart-count').innerHTML = response['cart_count'];
+                }
+            })
+        }
+    </script>
 @stop
 
 @section('styles')

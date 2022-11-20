@@ -34,16 +34,28 @@ class CartController extends Controller
                 'isbn' => $book->isbn,
             ],
         ]);
-        return back();
+
+        $response['cart_count'] = Cart::count();
+        $response['cart_subtotal'] = Cart::subtotal();
+        $response['cart'] = Cart::content();
+
+        return $response;
     }
 
     public function decrease($rowId){
         Cart::update($rowId, Cart::get($rowId)->qty - 1);
-        return back();
+        $response['cart_count'] = Cart::count();
+        $response['cart_subtotal'] = Cart::subtotal();
+        $response['cart'] = Cart::content();
+
+        return $response;
     }
 
     public function remove($rowId){
         Cart::remove($rowId);
-        return back();
+        $response['cart_count'] = Cart::count();
+        $response['cart_subtotal'] = Cart::subtotal();
+
+        return $response;
     }
 }
