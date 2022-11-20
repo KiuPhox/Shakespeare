@@ -82,8 +82,10 @@ Route::get('/auth/verify-email/{verification_code}', [AuthController::class, 've
 
 
 //forgot password
-Route::get('/forgot-password', [AuthController::class, 'getForgotPassword'])->name('getForgotPassword');
-
+Route::get('/forget-password', [AuthController::class, 'getForgetPassword'])->name('getForgetPassword');
+Route::post('/forget-password', [AuthController::class, 'postForgetPassword'])->name('postForgetPassword');
+Route::get('/reset-password/{reset_code}', [AuthController::class, 'getResetPassword'])->name('getResetPassword');
+Route::post('/reset-password/{reset_code}', [AuthController::class, 'postResetPassword'])->name('postResetPassword');
 
 // Order
 Route::post('/order/add', [OrderController::class, 'store']);

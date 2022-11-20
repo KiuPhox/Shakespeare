@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ForgetPasswordMail;
+use App\Models\PasswordReset;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -132,6 +134,55 @@ class AuthController extends Controller
 
     }
 
-    public function getForgotPassword(){}
+    public function getForgetPassword(){
+        return view('auth.forget_password');
+    }
+
+    public function postForgetPassword(Request $request){
+        $user = User::where('email', $request->email)->first();
+
+        if(!$user){
+            return redirect()->back();
+        } else {
+            $reset_code = Str::random(100);
+            PasswordReset::create([
+                'user_id' => $user->id,
+                'reset_code' => $reset_code,
+            ]);
+
+            Mail::to($user->email)->send(new ForgetPasswordMail($user->name,$reset_code));
+            return redirect()->back();
+        }
+    }
+
+    public function getResetPassword($reset_code){
+        $password_reset_data = PasswordReset::where('reset_code', $reset_code)->first();
+        if(!$password_reset_data || Carbon::now()->subMinutes(50) > $password_reset_data->created_at)
+        {
+            return redirect()->route('getForgetPassword');
+        } else {
+            return view('auth.reset_password', ['reset_code' => $reset_code]);
+        }
+    }
+
+    public function postResetPassword($reset_code, Request $request){
+        $password_reset_data = PasswordReset::where('reset_code', $reset_code)->first();
+        if(!$password_reset_data || Carbon::now()->subMinutes(50) > $password_reset_data->created_at)
+        {
+            return redirect()->route('getForgetPassword');
+        } else {
+            $request->validate([
+                'password' => 'required|min:6|max:20',
+                'confirm_password' => 'required|same:password',
+            ]);
+            $user = User::find($password_reset_data->user_id);
+            $password_reset_data->delete();
+            $user->update([
+                'password' => Hash::make($request->get('password')),
+            ]);
+            return redirect()->route('login');
+        }
+    }
+
 }
 

@@ -39,39 +39,20 @@
                     <div class="card-body p-4">
 
                         <div class="text-center w-75 m-auto">
-                            <h4 class="text-dark-50 text-center mt-0 font-weight-bold">Sign In</h4>
-                            <p class="text-muted mb-4">Enter your email address and password to access admin panel.</p>
+                            <h4 class="text-dark-50 text-center mt-0 font-weight-bold">Reset Password</h4>
+                            <p class="text-muted mb-4">Enter your email address for verification.</p>
                         </div>
 
-                        <form method="post" action="{{ route('process_login') }}">
+                        <form method="post" action="{{route('postForgetPassword')}}">
                             @csrf
                             <div class="form-group">
                                 <label for="emailaddress">Email address</label>
                                 <input name="email" class="form-control" type="email" id="emailaddress" required="" placeholder="Enter your email">
                             </div>
 
-                            <div class="form-group">
-                                <a href="{{route('getForgetPassword')}}" class="text-muted float-right"><small>Forgot your password?</small></a>
-                                <label for="password">Password</label>
-                                <div class="input-group input-group-merge">
-                                    <input name="password" type="password" id="password" class="form-control" placeholder="Enter your password">
-                                    <div class="input-group-append" data-password="false">
-                                        <div class="input-group-text">
-                                            <span class="password-eye"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="checkbox-signin" checked>
-                                    <label class="custom-control-label" for="checkbox-signin">Remember me</label>
-                                </div>
-                            </div>
 
                             <div class="form-group mb-0 text-center">
-                                <button class="btn" type="submit"> Sign In </button>
+                                <button class="btn" type="submit"> Submit </button>
                             </div>
 
                             <div class="or-container"><div class="line-separator"></div> <div class="or-label">or</div><div class="line-separator"></div></div>
@@ -87,7 +68,7 @@
 
                 <div class="row mt-3">
                     <div class="col-12 text-center">
-                        <p class="text-muted">Don't have an account? <a href="{{route('signup')}}" class="text-muted ml-1"><b>Sign Up</b></a></p>
+                        <p class="text-muted">Already have an account <a href="{{route('login')}}" class="text-muted ml-1"><b>Sign In</b></a></p>
                     </div> <!-- end col -->
                 </div>
                 <!-- end row -->
