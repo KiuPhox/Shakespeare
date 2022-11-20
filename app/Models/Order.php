@@ -19,7 +19,8 @@ class Order extends Model
         'country',
         'phone_number',
         'total',
-        'user_id'
+        'user_id',
+        'status',
         ];
 
     public function getOrderDate(){

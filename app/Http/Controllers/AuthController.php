@@ -107,7 +107,7 @@ class AuthController extends Controller
     {
 
             $google_user = Socialite::driver('google')->user();
-            $hashed_random_password = Hash::make(Str::random(7));
+            $hashed_random_password = Hash::make(Str::random(20));
 
             $user = User::where('email', $google_user->getEmail())->first();
             if (!$user) {

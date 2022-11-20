@@ -38,6 +38,13 @@
                 </a>
             </li>
 
+            <li class="side-nav-item">
+                <a href="{{route('orders.index')}}" class="side-nav-link">
+                    <i class="mdi mdi-room-service"></i>
+                    <span> Orders </span>
+                </a>
+            </li>
+
 
 
 

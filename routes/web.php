@@ -57,6 +57,7 @@ Route::group([
             Route::resource('users' , UserController::class);
             Route::resource('publishers' , PublisherController::class)->except('show');
             Route::resource('dashboard' , AdminController::class);
+            Route::resource('orders' , OrderController::class);
             Route::resource('books', BookController::class)->except(
                 'show',
             );
