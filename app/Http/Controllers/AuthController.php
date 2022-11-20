@@ -49,6 +49,7 @@ class AuthController extends Controller
             return redirect()->route('login');
         }
     }
+    
     public function logout(){
         $cart = session()->get('cart');
         session()->flush();
