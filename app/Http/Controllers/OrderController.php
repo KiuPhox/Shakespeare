@@ -70,7 +70,6 @@ class OrderController extends Controller
         if (is_null($request['full_name']) ||
             is_null($request['company']) ||
             is_null($request['city']) ||
-            is_null($request['country']) ||
             is_null($request['phone_number'])) {
             $response['success'] = 'failed';
         }else{

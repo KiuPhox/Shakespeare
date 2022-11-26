@@ -47,7 +47,6 @@
             <p></p>
             <p></p>
             <p></p>
-            <p></p>
             <button id="add-btn">Add an address</button>
             @if (session()->has('id'))
             <button id="select-btn">Select an address</button>
@@ -92,20 +91,82 @@
         </div>
         <div class="form-row">
             <div class="form-input">
-                <input name="postal_code" type="text" placeholder="">
+                <input type="number" name="postal_code" type="text" placeholder="">
                 <div class="form-label">Postal Code</div>
             </div>
-            <div class="form-input">
-                <input name="city" type="text" placeholder="">
+            <div style="position: relative;" class="form-input">
+                <div class="city-list">
+                    <a style="display: none; cursor: default;">No data available</a>
+                    <a>An Giang</a>
+                    <a>Bà rịa – Vũng tàu</a>
+                    <a>Bắc Giang</a>
+                    <a>Bắc Kạn</a>
+                    <a>Bạc Liêu</a>
+                    <a>Bắc Ninh</a>
+                    <a>Bến Tre</a>
+                    <a>Bình Định</a>
+                    <a>Bình Dương</a>
+                    <a>Bình Phước</a>
+                    <a>Bình Thuận</a>
+                    <a>Cà Mau</a>
+                    <a>Cần Thơ</a>
+                    <a>Cao Bằng</a>
+                    <a>Đà Nẵng</a>
+                    <a>Đắk Lắk</a>
+                    <a>Đắk Nông</a>
+                    <a>Điện Biên</a>
+                    <a>Đồng Nai</a>
+                    <a>Đồng Tháp</a>
+                    <a>Gia Lai</a>
+                    <a>Hà Giang</a>
+                    <a>Hà Nam</a>
+                    <a>Hà Nội</a>
+                    <a>Hà Tĩnh</a>
+                    <a>Hải Dương</a>
+                    <a>Hải Phòng</a>
+                    <a>Hậu Giang</a>
+                    <a>Hòa Bình</a>
+                    <a>Hưng Yên</a>
+                    <a>Khánh Hòa</a>
+                    <a>Kiên Giang</a>
+                    <a>Kon Tum</a>
+                    <a>Lai Châu</a>
+                    <a>Lâm Đồng</a>
+                    <a>Lạng Sơn</a>
+                    <a>Lào Cai</a>
+                    <a>Long An</a>
+                    <a>Nam Định</a>
+                    <a>Nghệ An</a>
+                    <a>Ninh Bình</a>
+                    <a>Ninh Thuận</a>
+                    <a>Phú Thọ</a>
+                    <a>Phú Yên</a>
+                    <a>Quảng Bình</a>
+                    <a>Quảng Nam</a>
+                    <a>Quảng Ngãi</a>
+                    <a>Quảng Ninh</a>
+                    <a>Quảng Trị</a>
+                    <a>Sóc Trăng</a>
+                    <a>Sơn La</a>
+                    <a>Tây Ninh</a>
+                    <a>Thái Bình</a>
+                    <a>Thái Nguyên</a>
+                    <a>Thanh Hóa</a>
+                    <a>Thừa Thiên Huế</a>
+                    <a>Tiền Giang</a>
+                    <a>Thành phố Hồ Chí Minh</a>
+                    <a>Trà Vinh</a>
+                    <a>Tuyên Quang</a>
+                    <a>Vĩnh Long</a>
+                    <a>Vĩnh Phúc</a>
+                    <a>Yên Bái</a>
+                </div>
+                <input onchange="searchCity();"  onkeyup="searchCity();" id="city-input" name="city" type="text" placeholder="">
                 <div class="form-label">City</div>
-            </div>
-            <div class="form-input">
-                <input name="country" type="text" placeholder="">
-                <div class="form-label">Country</div>
             </div>
         </div>
         <div class="form-input">
-            <input name="phone_number" type="text" placeholder="">
+            <input type="number" name="phone_number" type="text" placeholder="">
             <div class="form-label">Phone number</div>
         </div>
     </div>
@@ -124,7 +185,6 @@
                 <p>{{$address->getFullName()}}</p>
                 <p>{{$address['address']}}</p>
                 <p>{{$address->getFullCity()}}</p>
-                <p>{{$address['country']}}</p>
                 <p>{{$address['phone_number']}}</p>
                 <button onclick="selectAddress({{$address}})" class="select-address-btn">Select</button>
             </div>
@@ -139,6 +199,32 @@
 
 @section('styles')
     <style>
+        .city-list{
+            display: none;
+            flex-direction: column;
+            background-color: white;
+            position: absolute;
+            overflow-y: scroll;
+            bottom: 4rem;
+            right: 0;
+            max-height: 300px;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .city-list a{
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 400;
+            font-family: 'EB Garamond', serif;
+            height: 40px;
+            line-height: 40px;
+            padding-left: 20px;
+        }
+
+        .city-list a:hover{
+            background-color: #d6d8da;
+        }
         .remove-book{
             cursor: pointer;
         }
@@ -451,6 +537,63 @@
 
         const address_p = document.querySelectorAll('.address-container p');
         const select_addresses_container = document.getElementById('select-addresses-container');
+        const city_list = document.querySelector('.city-list');
+        const city_items = city_list.querySelectorAll('a');
+        const city_input = document.getElementById('city-input');
+
+        function searchCity(){
+            console.log(city_input.value);
+
+            let count = 0;
+
+            city_items.forEach(function(item){
+                if (item.innerHTML.toLowerCase().indexOf(city_input.value.toLowerCase()) > -1){
+                    if (item.innerHTML !== 'No data available'){
+                        item.style.display = 'block';
+                        count++;
+                    }
+                }
+                else{
+                    item.style.display = 'none';
+                }
+            })
+            if (count === 0){
+                city_items[0].style.display = 'block';
+            }
+            else{
+                city_items[0].style.display = 'none';
+            }
+        }
+
+        city_input.addEventListener('blur', function(){
+            let done = false;
+
+            city_items.forEach(function(item){
+                if (item.innerHTML === city_input.value){
+                    done = true;
+                }
+            })
+            if (!done){
+                city_input.value = "";
+            }
+            setTimeout(function(){
+                city_list.style.display = 'none';
+            }, 100);
+        })
+
+        city_items.forEach(function(item){
+            item.addEventListener('click', function(){
+                if (item !== city_items[0]){
+                    city_input.value = item.innerHTML;
+                    let form_label = city_input.parentElement.querySelector('.form-label');
+                    form_label.style.top = '-3.3rem';
+                    form_label.style.fontSize = '1rem';
+                    form_label.style.color = 'black';
+                    city_list.style.display = 'none';
+                }
+            })
+        })
+
 
 
 
@@ -470,7 +613,6 @@
             address_p[2].innerHTML = inputs[3].value;
             address_p[3].innerHTML = inputs[4].value + " " + inputs[5].value;
             address_p[4].innerHTML = inputs[6].value;
-            address_p[5].innerHTML = inputs[7].value;
         });
 
         close_form_btn.addEventListener('click', function(event){
@@ -501,8 +643,7 @@
             address_p[1].innerHTML = address['first_name'] + " " + address['last_name'];
             address_p[2].innerHTML = address['address'];
             address_p[3].innerHTML = address['postal_code'] + " " + address['city'];
-            address_p[4].innerHTML = address['country'];
-            address_p[5].innerHTML = address['phone_number'];
+            address_p[4].innerHTML = address['phone_number'];
             select_addresses_container.style.display = 'none';
         }
 
@@ -596,8 +737,7 @@
                     full_name :address_p[1].innerHTML,
                     address: address_p[2].innerHTML,
                     city: address_p[3].innerHTML,
-                    country: address_p[4].innerHTML,
-                    phone_number: address_p[5].innerHTML,
+                    phone_number: address_p[4].innerHTML,
                     @if (session()->has('id'))
                     user_id: {{session()->get('id')}},
                     @endif
@@ -620,6 +760,20 @@
                 form_label.style.top = '-3.3rem';
                 form_label.style.fontSize = '1rem'
                 form_label.style.color = 'black';
+
+                if (item.name === 'city'){
+                    city_list.style.display = 'flex';
+
+                    city_items.forEach(function(item) {
+                        if (item.innerHTML !== 'No data available') {
+                            item.style.display = 'block';
+                        }
+                        else{
+                            item.style.display = 'none';
+                        }
+                    });
+
+                }
             });
 
             item.addEventListener('blur', function(){
@@ -628,6 +782,7 @@
                     form_label.style.top = '-1.8rem';
                     form_label.style.fontSize = '1.3rem'
                 }
+
                 form_label.style.color = 'grey';
             });
         })
