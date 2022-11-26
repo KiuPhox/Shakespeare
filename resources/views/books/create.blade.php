@@ -144,10 +144,10 @@
                                         </div>
                                         <div class="row mt-5">
                                             <div class="col-sm-3 mt-5">
-                                                <button class="btn btn-success btn-rounded mt-5 px-3 py-2"><i class="mdi mdi-plus-circle mr-2"></i> Insert</button>
+                                                <button class="btn btn-success mt-5 px-3 py-2"><i class="mdi mdi-plus-circle mr-2"></i> Insert</button>
                                             </div>
                                             <div class="col-sm-3 mt-5">
-                                                <a href="{{route('books.index')}}" class="btn btn-danger btn-rounded mt-5 px-3 py-2"><i class="mdi mdi-window-close mr-2"></i> Cancel</a>
+                                                <a href="{{route('books.index')}}" class="btn btn-danger mt-5 px-3 py-2"><i class="mdi mdi-window-close mr-2"></i> Cancel</a>
                                             </div>
                                         </div>
                                 </div>
@@ -169,7 +169,7 @@
 </div>
 <!-- END Container -->
 
-
+</div>
 
 
 <script src="{{asset('admin/js/vendor.min.js')}}"></script>

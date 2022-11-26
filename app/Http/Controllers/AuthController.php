@@ -65,6 +65,7 @@ class AuthController extends Controller
     {
         $rules = [
             'email' => 'unique:App\Models\User,email',
+            'password' =>'required|min:6|max:20'
         ];
 
 
@@ -80,22 +81,22 @@ class AuthController extends Controller
             ]);
 
             Mail::to($request -> email)->send(new EmailVerificationMail($user));
-            return redirect()->back()->with('success', 'Verification');
+            return redirect()->route('login')->with('success', 'Please check your email for verification link.');
 
         }
 
     public function verifyEmail($verification_code){
         $user = User::where('email_verification_code', $verification_code)->first();
         if(!$user) {
-            return redirect()->route('signup')->with('error', 'Invalid');
+            return redirect()->route('login')->with('error', 'Invalid Link');
         }else {
             if($user->email_verified_at){
-                return redirect()->route('signup')->with('error', 'Email already verified');
+                return redirect()->route('login')->with('error', 'Email already verified');
             }else{
                 $user->update([
                     'email_verified_at' =>Carbon::now()
                 ]);
-                return redirect()->route('signup')->with('success', 'Email verified');
+                return redirect()->route('login')->with('success', 'Email verified. You can now login.');
             }
         }
     }
@@ -152,6 +153,7 @@ class AuthController extends Controller
             ]);
 
             Mail::to($user->email)->send(new ForgetPasswordMail($user->name,$reset_code));
+            toastr()->success('Please check your email', 'We have send a verification email');
             return redirect()->back();
         }
     }
@@ -162,6 +164,7 @@ class AuthController extends Controller
         {
             return redirect()->route('getForgetPassword');
         } else {
+            toastr()->info('You can now create a new password');
             return view('auth.reset_password', ['reset_code' => $reset_code]);
         }
     }
@@ -181,6 +184,7 @@ class AuthController extends Controller
             $user->update([
                 'password' => Hash::make($request->get('password')),
             ]);
+            toastr()->success('Success! Password');
             return redirect()->route('login');
         }
     }

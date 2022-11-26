@@ -133,6 +133,10 @@
       <path value="$PROJECT_DIR$/vendor/laravel/socialite" />
       <path value="$PROJECT_DIR$/vendor/league/oauth1-client" />
       <path value="$PROJECT_DIR$/vendor/bumbummen99/shoppingcart" />
+      <path value="$PROJECT_DIR$/vendor/php-flasher/flasher-toastr" />
+      <path value="$PROJECT_DIR$/vendor/php-flasher/flasher-laravel" />
+      <path value="$PROJECT_DIR$/vendor/php-flasher/flasher" />
+      <path value="$PROJECT_DIR$/vendor/yoeunes/toastr" />
     </include_path>
   </component>
   <component name="ProjectId" id="2Fm7qyyySLldt04vsjwtagfBkTe" />
@@ -149,7 +153,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/Shakespeare/app/Http/Controllers&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/laragon/www/Shakespeare/public/img&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -162,18 +166,18 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\Shakespeare\public\img" />
       <recent name="C:\xampp\htdocs\Shakespeare\app\Http\Controllers" />
       <recent name="C:\xampp\htdocs\Shakespeare\resources\views\user\home" />
       <recent name="C:\xampp\htdocs\Shakespeare\app\Models" />
       <recent name="C:\xampp\htdocs\Shakespeare\database" />
-      <recent name="C:\xampp\htdocs\Shakespeare\resources\views\home" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\Shakespeare\public\img" />
       <recent name="C:\xampp\htdocs\Shakespeare\database" />
       <recent name="C:\xampp\htdocs\Shakespeare\resources\views\user" />
       <recent name="C:\xampp\htdocs\Shakespeare\resources\views\partial" />
       <recent name="C:\xampp\htdocs\Shakespeare\public" />
-      <recent name="C:\xampp\htdocs\Shakespeare\resources\views\home" />
     </key>
   </component>
   <component name="RunManager">
@@ -216,6 +220,8 @@
       <workItem from="1668694691709" duration="5115000" />
       <workItem from="1668788289628" duration="10086000" />
       <workItem from="1668846797238" duration="6295000" />
+      <workItem from="1668968936789" duration="9202000" />
+      <workItem from="1668991664468" duration="4262000" />
     </task>
     <servers />
   </component>
@@ -237,19 +243,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/admin/layouts/master-admin.blade.php</url>
-          <line>23</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/user/home/account.blade.php</url>
           <line>22</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/user/home/cart.blade.php</url>
-          <line>138</line>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

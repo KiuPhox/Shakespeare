@@ -1,7 +1,7 @@
 @component('mail::message')
-# Introduction
+
 Hello {{$user->name}}
-The body of your message.
+Please click the following link to verify.
 
 @component('mail::button', ['url' => route('verify_email', $user->email_verification_code)])
 Verify

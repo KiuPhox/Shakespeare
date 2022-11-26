@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Add Book</title>
+    <title>Add Publisher</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -36,7 +36,7 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Publishers</a></li>
+                                    <li class="breadcrumb-item"><a href="{{route('publishers.index')}}">Publishers</a></li>
                                     <li class="breadcrumb-item active">Add Publisher</li>
                                 </ol>
                             </div>
@@ -60,11 +60,11 @@
                                     </div> <!-- end col-->
 
                                     <div class="row mt-5">
-                                        <div class="col-sm-3 mt-5">
-                                            <button class="btn btn-success btn-rounded mt-5 px-3 py-2"><i class="mdi mdi-plus-circle mr-2"></i> Insert</button>
+                                        <div class="col-sm-5 mt-0 mr-5">
+                                            <button class="btn btn-success  mt-1 px-2 py-2" style=""><i class="mdi mdi-plus-circle mr-2"></i> Insert</button>
                                         </div>
-                                        <div class="col-sm-3 mt-5">
-                                            <a href="{{route('publishers.index')}}" class="btn btn-danger btn-rounded mt-5 px-3 py-2"><i class="mdi mdi-window-close mr-2"></i> Cancel</a>
+                                        <div class="col-sm-5 mt-0 mr-5">
+                                            <a href="{{route('publishers.index')}}" class="btn btn-danger  mt-1 px-2 py-2" style=""><i class="mdi mdi-window-close mr-1"></i> Cancel</a>
                                         </div>
                                     </div>
                                 </div>
@@ -94,3 +94,8 @@
 
 </body>
 </html>
+
+<style>
+
+
+</style>

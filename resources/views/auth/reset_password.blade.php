@@ -55,6 +55,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                @error('password')
+                                <span style="color:orangered;">{{$message}}</span>
+                                @enderror
+
                             </div>
 
                             <div class="form-group">
@@ -67,6 +71,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                @error('confirm_password')
+                                <span style="color:orangered;">{{$message}}</span>
+                                @enderror
                             </div>
 
 

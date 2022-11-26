@@ -29,12 +29,12 @@
 
     <div class="row mb-2">
         <div class="col-sm-4">
-            <a href="{{route('publishers.create')}}" class="btn btn-danger mb-2 add-book-button"><i class="mdi mdi-plus-circle mr-2"></i> Add Products</a>
+            <a href="{{route('publishers.create')}}" class="add-publisher-button"><i class="mdi mdi-plus-circle mr-2"></i> Add Publisher</a>
         </div>
     </div>
 
 
-    <table class="table table-centered table-striped mb-0 text-center">
+    <table class="table table-centered table-striped mb-0 text-center" style="margin-top: 2rem ">
         <thead class="thead">
         <tr>
             <th>#</th>
@@ -81,6 +81,25 @@
         table thead{
             background-color: #0b3937;
             color: white;
+        }
+
+        .add-publisher-button{
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 1rem;
+            letter-spacing: .1em;
+            height: 40px;
+            border: 2px solid #0b3937;
+            background-color: #0b3937;
+            padding: 0.5rem 1.5rem!important;
+            margin-top: 3rem;
+            color: white!important;
+            margin-bottom: 5rem;
+            cursor: pointer;
+            transition: .3s all 1ms;
+        }
+        .add-publisher-button:hover{
+            background-color: #234c4b;
         }
     </style>
 @stop

@@ -97,7 +97,7 @@
     </table>
 
     <nav>
-        <ul class="pagination pagination-rounded mb-0">
+        <ul class="pagination pagination-rounded mt-3">
             {{$orders->links()}}
         </ul>
     </nav>
@@ -106,9 +106,14 @@
 
 @section('styles')
     <style>
-        table thead{
+        table thead {
             background-color: #0b3937;
             color: white;
+        }
+
+        .page-item.active .page-link{
+            background-color: #f0efea!important;
+            color: black !important;
         }
     </style>
 @stop

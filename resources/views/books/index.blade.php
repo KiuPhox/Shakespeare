@@ -88,7 +88,7 @@
     <ul class="pagination pagination-rounded mb-5 mt-5">
         {{$books->links()}}
     </ul>
-    <a href="{{route('books.create')}}" class="btn btn-danger mb-2 add-book-button"><i class="mdi mdi-plus-circle mr-2"></i> Add Products</a>
+    <a href="{{route('books.create')}}" class="add-book-button"><i class="mdi mdi-plus-circle mr-2"></i> Add Products</a>
 </nav>
 @stop
 @section('styles')
@@ -98,8 +98,29 @@
         color: white;
     }
 
+    .page-item.active .page-link{
+        background-color: #f0efea!important;
+        color: black !important;
+    }
+
     .add-book-button{
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: 1rem;
+        letter-spacing: .1em;
         height: 40px;
+        border: 2px solid #0b3937;
+        background-color: #0b3937;
+        padding: 0.5rem 1.5rem!important;
+        margin-top: 2rem;
+        color: white!important;
+        margin-bottom: 2rem;
+        cursor: pointer;
+        transition: .3s all 1ms;
+    }
+
+    .add-book-button:hover{
+        background-color: #234c4b;
     }
 
     .pagination-nav{
