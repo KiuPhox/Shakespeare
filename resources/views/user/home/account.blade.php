@@ -431,7 +431,7 @@
             }
             setTimeout(function(){
                 city_list.style.display = 'none';
-            }, 100);
+            }, 200);
         })
 
         city_items.forEach(function(item){
