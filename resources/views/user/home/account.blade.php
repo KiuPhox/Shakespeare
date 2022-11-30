@@ -67,79 +67,26 @@
             <div class="form-label">Address</div>
         </div>
         <div class="form-row">
-            <div class="form-input">
-                <input type="number" name="postal_code" type="text" placeholder="">
-                <div class="form-label">Postal Code</div>
-            </div>
             <div style="position: relative;" class="form-input">
                 <div class="city-list">
                     <a style="display: none; cursor: default;">No data available</a>
-                    <a>An Giang</a>
-                    <a>Bà rịa – Vũng tàu</a>
-                    <a>Bắc Giang</a>
-                    <a>Bắc Kạn</a>
-                    <a>Bạc Liêu</a>
-                    <a>Bắc Ninh</a>
-                    <a>Bến Tre</a>
-                    <a>Bình Định</a>
-                    <a>Bình Dương</a>
-                    <a>Bình Phước</a>
-                    <a>Bình Thuận</a>
-                    <a>Cà Mau</a>
-                    <a>Cần Thơ</a>
-                    <a>Cao Bằng</a>
-                    <a>Đà Nẵng</a>
-                    <a>Đắk Lắk</a>
-                    <a>Đắk Nông</a>
-                    <a>Điện Biên</a>
-                    <a>Đồng Nai</a>
-                    <a>Đồng Tháp</a>
-                    <a>Gia Lai</a>
-                    <a>Hà Giang</a>
-                    <a>Hà Nam</a>
-                    <a>Hà Nội</a>
-                    <a>Hà Tĩnh</a>
-                    <a>Hải Dương</a>
-                    <a>Hải Phòng</a>
-                    <a>Hậu Giang</a>
-                    <a>Hòa Bình</a>
-                    <a>Hưng Yên</a>
-                    <a>Khánh Hòa</a>
-                    <a>Kiên Giang</a>
-                    <a>Kon Tum</a>
-                    <a>Lai Châu</a>
-                    <a>Lâm Đồng</a>
-                    <a>Lạng Sơn</a>
-                    <a>Lào Cai</a>
-                    <a>Long An</a>
-                    <a>Nam Định</a>
-                    <a>Nghệ An</a>
-                    <a>Ninh Bình</a>
-                    <a>Ninh Thuận</a>
-                    <a>Phú Thọ</a>
-                    <a>Phú Yên</a>
-                    <a>Quảng Bình</a>
-                    <a>Quảng Nam</a>
-                    <a>Quảng Ngãi</a>
-                    <a>Quảng Ninh</a>
-                    <a>Quảng Trị</a>
-                    <a>Sóc Trăng</a>
-                    <a>Sơn La</a>
-                    <a>Tây Ninh</a>
-                    <a>Thái Bình</a>
-                    <a>Thái Nguyên</a>
-                    <a>Thanh Hóa</a>
-                    <a>Thừa Thiên Huế</a>
-                    <a>Tiền Giang</a>
-                    <a>Thành phố Hồ Chí Minh</a>
-                    <a>Trà Vinh</a>
-                    <a>Tuyên Quang</a>
-                    <a>Vĩnh Long</a>
-                    <a>Vĩnh Phúc</a>
-                    <a>Yên Bái</a>
                 </div>
-                <input onchange="searchCity();"  onkeyup="searchCity();" id="city-input" name="city" type="text" placeholder="">
+                <input id="city-input" name="city" type="text" placeholder="">
                 <div class="form-label">City</div>
+            </div>
+            <div style="position: relative;" class="form-input">
+                <div class="district-list">
+                    <a style="display: none; cursor: default;">No data available</a>
+                </div>
+                <input id="district-input" name="district" type="text" placeholder="">
+                <div class="form-label">District</div>
+            </div>
+            <div style="position: relative;" class="form-input">
+                <div class="ward-list">
+                    <a style="display: none; cursor: default;">No data available</a>
+                </div>
+                <input id="ward-input" name="ward" type="text" placeholder="">
+                <div class="form-label">Ward</div>
             </div>
         </div>
         <div class="form-input">
@@ -155,7 +102,7 @@
 
 @section('styles')
     <style>
-        .city-list{
+        .city-list, .district-list, .ward-list{
             display: none;
             flex-direction: column;
             background-color: white;
@@ -168,7 +115,7 @@
             z-index: 2;
         }
 
-        .city-list a{
+        .city-list a, .district-list a, .ward-list a{
             font-size: 16px;
             cursor: pointer;
             font-weight: 400;
@@ -178,7 +125,7 @@
             padding-left: 20px;
         }
 
-        .city-list a:hover{
+        .city-list a:hover, .district-list a:hover, .ward-list a:hover{
             background-color: #d6d8da;
         }
 
@@ -383,6 +330,8 @@
     </style>
 @stop
 @section('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script>
         const inputs = document.querySelectorAll('.form-input input');
         const form_labels = document.querySelectorAll('.form-input .form-label');
@@ -391,61 +340,123 @@
         const close_btn = document.getElementById('close-btn')
         const edit_buttons = document.querySelectorAll('.edit-btn');
         const city_list = document.querySelector('.city-list');
-        const city_items = city_list.querySelectorAll('a');
         const city_input = document.getElementById('city-input');
+        const district_list = document.querySelector('.district-list');
+        const district_input = document.getElementById('district-input');
+        const ward_list = document.querySelector('.ward-list');
+        const ward_input = document.getElementById('ward-input');
 
-        function searchCity(){
-            console.log(city_input.value);
+        var Parameter = {
+            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+            method: "GET",
+            responseType: "application/json",
+        };
 
-            let count = 0;
+        var promise = axios(Parameter);
+        promise.then(function(result) {
+            renderCity(result.data);
+        });
 
-            city_items.forEach(function(item){
-                if (item.innerHTML.toLowerCase().indexOf(city_input.value.toLowerCase()) > -1){
-                    if (item.innerHTML !== 'No data available'){
-                        item.style.display = 'block';
-                        count++;
+        function renderCity(data) {
+
+
+            for (const x of data) {
+                var city = document.createElement('a');
+                city.innerHTML = x.Name;
+                city_list.appendChild(city);
+            }
+
+
+            city_input.addEventListener('blur', function(){
+                let done = false;
+                city_items.forEach(function(item){
+                    if (item.innerHTML === city_input.value){
+                        done = true;
                     }
+                })
+                if (!done){
+                    city_input.value = "";
                 }
-                else{
-                    item.style.display = 'none';
-                }
+                setTimeout(function(){
+                    city_list.style.display = 'none';
+                }, 200);
             })
-            if (count === 0){
-                city_items[0].style.display = 'block';
-            }
-            else{
-                city_items[0].style.display = 'none';
-            }
+
+            const city_items = city_list.querySelectorAll('a');
+            city_items.forEach(function(item){
+                item.addEventListener('click', function(){
+                    if (item !== city_items[0]){
+                        city_input.value = item.innerHTML;
+                        console.log(item.innerHTML);
+                        let form_label = city_input.parentElement.querySelector('.form-label');
+                        form_label.style.top = '-3.3rem';
+                        form_label.style.fontSize = '1rem';
+                        form_label.style.color = 'black';
+                        city_list.style.display = 'none';
+                    }
+
+                    if (city_input.value !== "") {
+                        const district_input = document.getElementById('district-input');
+                        const result = data.filter(n => n.Name === city_input.value);
+                        district_list.innerHTML = "";
+                        district_input.value = "";
+                        for (const k of result[0].Districts) {
+                            var district = document.createElement('a');
+                            district.innerHTML = k.Name;
+                            district_list.appendChild(district);
+                        }
+
+                        const district_items = district_list.querySelectorAll('a');
+
+                        district_items.forEach(function(item){
+                            item.addEventListener('click', function(){
+
+                                if (item !== district_items[0]){
+                                    console.log(item.innerHTML);
+                                    district_input.value = item.innerHTML;
+                                    let form_label = district_input.parentElement.querySelector('.form-label');
+                                    form_label.style.top = '-3.3rem';
+                                    form_label.style.fontSize = '1rem';
+                                    form_label.style.color = 'black';
+                                    district_list.style.display = 'none';
+                                }
+
+                                if (district_input.value !== "") {
+                                    const dataCity = data.filter((n) => n.Name === city_input.value);
+                                    const ward_input = document.getElementById('ward-input');
+                                    const dataWards = dataCity[0].Districts.filter(n => n.Name === district_input.value)[0].Wards;
+                                    ward_list.innerHTML = "";
+                                    ward_input.value = "";
+                                    for (const z of dataWards) {
+                                        var ward = document.createElement('a');
+                                        ward.innerHTML = z.Name;
+                                        ward_list.appendChild(ward);
+                                    }
+
+                                    const ward_items = ward_list.querySelectorAll('a');
+
+                                    ward_items.forEach(function(item){
+                                        item.addEventListener('click', function(){
+                                            console.log("a");
+                                            if (item !== district_items[0]){
+                                                ward_input.value = item.innerHTML;
+                                                let form_label = ward_input.parentElement.querySelector('.form-label');
+                                                form_label.style.top = '-3.3rem';
+                                                form_label.style.fontSize = '1rem';
+                                                form_label.style.color = 'black';
+                                                ward_list.style.display = 'none';
+                                            }
+                                        })
+                                    })
+                                }
+                            })
+                        })
+                    }
+                })
+            })
         }
 
-        city_input.addEventListener('blur', function(){
-            let done = false;
 
-            city_items.forEach(function(item){
-                if (item.innerHTML === city_input.value){
-                    done = true;
-                }
-            })
-            if (!done){
-                city_input.value = "";
-            }
-            setTimeout(function(){
-                city_list.style.display = 'none';
-            }, 200);
-        })
-
-        city_items.forEach(function(item){
-            item.addEventListener('click', function(){
-                if (item !== city_items[0]){
-                    city_input.value = item.innerHTML;
-                    let form_label = city_input.parentElement.querySelector('.form-label');
-                    form_label.style.top = '-3.3rem';
-                    form_label.style.fontSize = '1rem';
-                    form_label.style.color = 'black';
-                    city_list.style.display = 'none';
-                }
-            })
-        })
 
         new_address.addEventListener('click', function(event){
             form_address.style.display = 'flex';
@@ -464,32 +475,26 @@
             inputs[1].value = address['last_name'];
             inputs[2].value = address['company'];
             inputs[3].value = address['address'];
-            inputs[4].value = address['postal_code'];
-            inputs[5].value = address['city'];
-            inputs[6].value = address['phone_number'];
-
+            inputs[4].value = address['city'];
+            inputs[5].value = address['district'];
+            inputs[6].value = address['ward'];
+            inputs[7].value = address['phone_number'];
             inputs.forEach(function(item){
                 item.focus();
             })
         }
 
-        // edit_buttons.forEach(function(item, index){
-        //     item.addEventListener('click', function(event){
-        //         form_address.style.display = 'flex';
-        //         form_address.method = 'get';
-        //     });
-        // });
-
         close_btn.addEventListener('click', function(event){
             form_address.style.display = 'none';
             inputs.forEach(function(item){
                 item.value = "";
-
-
             })
         });
 
         inputs.forEach(function(item){
+            const city_items = city_list.querySelectorAll('a');
+            const district_items = district_list.querySelectorAll('a');
+            const ward_items = ward_list.querySelectorAll('a');
             item.addEventListener('focus', function(){
                 let form_label = this.parentElement.querySelector('.form-label');
                 form_label.style.top = '-3.3rem';
@@ -498,7 +503,6 @@
 
                 if (item.name === 'city'){
                     city_list.style.display = 'flex';
-
                     city_items.forEach(function(item) {
                         if (item.innerHTML !== 'No data available') {
                             item.style.display = 'block';
@@ -507,7 +511,29 @@
                             item.style.display = 'none';
                         }
                     });
+                }
+                if (item.name === 'district'){
+                    district_list.style.display = 'flex';
+                    district_items.forEach(function(item) {
+                        if (item.innerHTML !== 'No data available') {
+                            item.style.display = 'block';
+                        }
+                        else{
+                            item.style.display = 'none';
+                        }
+                    });
+                }
 
+                if (item.name === 'ward'){
+                    ward_list.style.display = 'flex';
+                    ward_items.forEach(function(item) {
+                        if (item.innerHTML !== 'No data available') {
+                            item.style.display = 'block';
+                        }
+                        else{
+                            item.style.display = 'none';
+                        }
+                    });
                 }
             });
 
@@ -517,7 +543,6 @@
                     form_label.style.top = '-1.8rem';
                     form_label.style.fontSize = '1.3rem'
                 }
-
                 form_label.style.color = 'grey';
             });
         })
@@ -527,8 +552,6 @@
                 this.parentElement.querySelector('input').focus();
             });
         })
-
-
     </script>
 @stop
 

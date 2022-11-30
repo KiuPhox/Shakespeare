@@ -16,9 +16,10 @@ class Address extends Model
         'last_name',
         'company',
         'address',
-        'postal_code',
         'city',
         'country',
+        'district',
+        'ward',
         'phone_number',
         'user_id'
         ];
@@ -28,6 +29,6 @@ class Address extends Model
     }
 
     public function getFullCity(){
-        return $this->postal_code." ".$this->city;
+        return $this->ward.", " .$this->district. ", ".$this->city;
     }
 }

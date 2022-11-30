@@ -15,8 +15,9 @@ class AddressController extends Controller
         if (is_null($request['first_name']) ||
             is_null($request['last_name']) ||
             is_null($request['company']) ||
-            is_null($request['postal_code']) ||
             is_null($request['city']) ||
+            is_null($request['district']) ||
+            is_null($request['ward']) ||
             is_null($request['phone_number'])) {
             return redirect()->route('account.index');
         }
