@@ -10,6 +10,7 @@
             <table>
                 <thead>
                 <tr>
+                    <th>Order Code</th>
                     <th>Date</th>
                     <th>Reference</th>
                     <th>Total</th>
@@ -20,6 +21,7 @@
                 <tbody>
                     @foreach($orders as $order)
                     <tr>
+                        <td><a href="https://donhang.ghn.vn/?order_code={{$order['order_code']}}">{{$order['order_code']}}</a></td>
                         <td>{{$order->getOrderDate()}}</td>
                         <td><a style="text-decoration: underline"href="{{route('user.orders.show', ['id' => $order->id])}}">Details</a></td>
                         <td>{{$order['total']}}.00 €</td>

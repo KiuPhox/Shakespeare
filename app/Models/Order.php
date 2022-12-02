@@ -49,9 +49,8 @@ class Order extends Model
     }
 
     public static function pushOrder($order_id){
-
         $orderDetails = Order::with('items')->where('id', $order_id)->first()->toArray();
-//        dd($orderDetails);die;
+        $temp_order = Order::query()->where('id', $order_id);
 
         $orderDetails['payment_type_id'] = 1;
         $orderDetails['note']= "";
@@ -72,9 +71,9 @@ class Order extends Model
         $orderDetails['to_name']= $orderDetails['full_name'];
         $orderDetails['to_phone']= $orderDetails['phone_number'];
         $orderDetails['to_address']= $orderDetails['address'];
-        $orderDetails['to_ward_name']= "Phường Long Thạnh Mỹ";
-        $orderDetails['to_district_name']= "Quận 9";
-        $orderDetails['to_province_name']= "TP Hồ Chí Minh";
+        $orderDetails['to_ward_name']= $orderDetails['ward'];
+        $orderDetails['to_district_name']= $orderDetails['district'];
+        $orderDetails['to_province_name']= $orderDetails['city'];
         $orderDetails['cod_amount']= 1000;
         $orderDetails['content']= "";
         $orderDetails['weight']= 7;
@@ -117,7 +116,7 @@ class Order extends Model
         $result = curl_exec($c);
         curl_close($c);
 
-        print_r($result); die;
+        $temp_order->update(['order_code' => json_decode($result, true)['data']['order_code']]);
     }
 
 }

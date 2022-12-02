@@ -622,8 +622,10 @@
             address_p[0].innerHTML = inputs[2].value;
             address_p[1].innerHTML = inputs[0].value + " " + inputs[1].value;
             address_p[2].innerHTML = inputs[3].value;
-            address_p[3].innerHTML = inputs[4].value + " " + inputs[5].value;
-            address_p[4].innerHTML = inputs[6].value;
+            address_p[5].innerHTML = inputs[4].value;
+            address_p[4].innerHTML = inputs[5].value;
+            address_p[3].innerHTML = inputs[6].value;
+            address_p[6].innerHTML = inputs[7].value;
         });
 
         close_form_btn.addEventListener('click', function(event){

@@ -50,6 +50,7 @@ class OrderController extends Controller
         }
 
         $order->update(['status' => '1']);
+        Order::pushOrder($order->id);
         return redirect()->route('orders.index');
     }
 

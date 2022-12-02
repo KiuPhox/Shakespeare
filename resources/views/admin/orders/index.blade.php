@@ -39,7 +39,6 @@
             <th>Company</th>
             <th>Address</th>
             <th>City</th>
-            <th>Country</th>
             <th>Phone Number</th>
             <th>Cash</th>
             <th>Status</th>
@@ -57,7 +56,6 @@
                 <td>{{ $order->company }}</td>
                 <td>{{ $order->address }}</td>
                 <td>{{ $order->city }}</td>
-                <td>{{ $order->country }}</td>
                 <td>{{ $order->phone_number }}</td>
                 <td>{{ $order->total }}</td>
                 <td>{{ $order->getStatus() }}</td>
