@@ -18,7 +18,7 @@ class OrderController extends Controller
         $search = $request->get('q');
 
         $orders = Order::query()
-            ->where('full_name', operator: 'like', value: '%'.$search.'%')
+            ->where('full_name', operator: 'like', value: '%' . $search . '%')
             ->paginate(5)
             ->appends('order', $search);
         return view('admin.orders.index', [
@@ -26,38 +26,44 @@ class OrderController extends Controller
         ]);
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $order_details = OrderDetail::query()->where('order_id', $id)->paginate(5);
         return view('admin.orders.order_detail', [
             'order_details' => $order_details,
         ]);
     }
 
-    public function verify(Order $order){
+    public function verify(Order $order)
+    {
         $order_details = OrderDetail::query()->get()->where('order_id', $order->id);
 
 
-        foreach ($order_details as $order_detail){
+        foreach ($order_details as $order_detail) {
             $book = Book::find($order_detail->product_id);
-            if ($book->quantity < $order_detail->amount){
+            if ($book->quantity < $order_detail->amount) {
                 return redirect()->route('orders.index');
             }
         }
 
-        foreach ($order_details as $order_detail){
+        foreach ($order_details as $order_detail) {
             $book = Book::find($order_detail->product_id);
             $book->update(['quantity' => $book->quantity - $order_detail->amount]);
         }
 
         $order->update(['status' => '1']);
-        Order::pushOrder($order->id);
+
+        // USE WHEN NEED
+        // Order::pushOrder($order->id);
+
         return redirect()->route('orders.index');
     }
 
-    public function redo(Order $order){
+    public function redo(Order $order)
+    {
         $order_details = OrderDetail::query()->get()->where('order_id', $order->id);
 
-        foreach ($order_details as $order_detail){
+        foreach ($order_details as $order_detail) {
             $book = Book::find($order_detail->product_id);
             $book->update(['quantity' => $book->quantity + $order_detail->amount]);
         }
@@ -68,18 +74,20 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        if (is_null($request['full_name']) ||
+        if (
+            is_null($request['full_name']) ||
             is_null($request['company']) ||
             is_null($request['city']) ||
             is_null($request['district']) ||
             is_null($request['ward']) ||
-            is_null($request['phone_number'])) {
+            is_null($request['phone_number'])
+        ) {
             $response['success'] = 'failed';
-        }else{
+        } else {
             $cart = Cart::content();
             $order_id = Order::create($request->except('_token'))->id;
 
-            foreach ($cart as $book){
+            foreach ($cart as $book) {
                 $order_detail = [
                     'order_id' => $order_id,
                     'product_id' => $book->id,
@@ -95,10 +103,10 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
-        if ($order->status == '1'){
+        if ($order->status == '1') {
             $order_details = OrderDetail::query()->get()->where('order_id', $order->id);
 
-            foreach ($order_details as $order_detail){
+            foreach ($order_details as $order_detail) {
                 $book = Book::find($order_detail->product_id);
                 $book->update(['quantity' => $book->quantity + $order_detail->amount]);
             }
