@@ -8,7 +8,9 @@
     </div>
     <div id="book-information">
         <h2>{{$book->title}}</h2>
-        <a href="{{@route('home.index')}}?author={{$book->author}}"><h3>{{$book->author}}</h3></a>
+        <a href="{{@route('home.index')}}?author={{$book->author}}">
+            <h3>{{$book->author}}</h3>
+        </a>
 
         <p>{{$book->price}}.00 €</p>
         <div id="description">{{$book->getSummaryDescription()}}</div>
@@ -29,17 +31,17 @@
 @stop
 
 @section('scripts')
-    <script>
-        function addToCart(id){
-            $.ajax({
-                type:"GET",
-                url: "/Shakespeare/public/cart/add/" + id,
-                success: function(response){
-                    document.getElementById('cart-count').innerHTML = response['cart_count'];
-                }
-            })
-        }
-    </script>
+<script>
+    function addToCart(id) {
+        $.ajax({
+            type: "GET",
+            url: "{{$host}}/cart/add/" + id,
+            success: function(response) {
+                document.getElementById('cart-count').innerHTML = response['cart_count'];
+            }
+        })
+    }
+</script>
 @stop
 
 @section('styles')
@@ -72,7 +74,10 @@
         width: 40%;
     }
 
-    #book-information h2, #book-information h3, #add-to-cart-container span, #book-information #description{
+    #book-information h2,
+    #book-information h3,
+    #add-to-cart-container span,
+    #book-information #description {
         font-family: 'EB Garamond', serif;
         margin: 0;
     }
@@ -99,7 +104,7 @@
         letter-spacing: .1em;
     }
 
-    #book-information #description{
+    #book-information #description {
         font-size: 21px;
         margin-top: 20px;
     }
@@ -111,7 +116,7 @@
         margin-top: 3rem;
     }
 
-    #book-detail span{
+    #book-detail span {
         text-transform: uppercase;
         color: #718096;
         letter-spacing: .1em;
@@ -152,7 +157,7 @@
         transition: 0.2s;
     }
 
-    #add-to-cart-container #add-to-cart-button:hover{
+    #add-to-cart-container #add-to-cart-button:hover {
         background-color: #f18366;
     }
 
@@ -163,4 +168,3 @@
     }
 </style>
 @stop
-
