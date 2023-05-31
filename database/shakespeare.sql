@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2022 at 08:56 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: May 31, 2023 at 09:34 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,21 +33,23 @@ CREATE TABLE `addresses` (
   `last_name` varchar(50) NOT NULL,
   `company` varchar(50) NOT NULL,
   `address` varchar(200) NOT NULL,
-  `postal_code` int(11) NOT NULL,
+  `postal_code` int(11) DEFAULT NULL,
   `city` varchar(50) NOT NULL,
-  `country` varchar(50) NOT NULL,
-  `phone_number` int(11) NOT NULL,
+  `country` varchar(50) DEFAULT NULL,
+  `district` varchar(50) NOT NULL,
+  `ward` varchar(50) NOT NULL,
+  `phone_number` varchar(11) NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `addresses`
 --
 
-INSERT INTO `addresses` (`id`, `first_name`, `last_name`, `company`, `address`, `postal_code`, `city`, `country`, `phone_number`, `user_id`) VALUES
-(1, 'a', 'a', 'a', 'a', 12, 'd', 'd', 321312312, 1),
-(3, 'a', 'a', 'a', 'a', 21, 'a', 'a', 2, 6),
-(4, 'b', 'a', 'a', 'a', 12, 'd', 'd', 321312312, 6);
+INSERT INTO `addresses` (`id`, `first_name`, `last_name`, `company`, `address`, `postal_code`, `city`, `country`, `district`, `ward`, `phone_number`, `user_id`) VALUES
+(3, 'a', 'a', 'a', 'a', 21, 'a', 'a', '', '', '2', 6),
+(4, 'b', 'a', 'a', 'a', 12, 'd', 'd', '', '', '321312312', 6),
+(5, 'Tuan', 'Nguyen Phan Anh', 'Sun', 'Lô 34, đường số 10 KĐT Lê Hồng Phong 2 phường Phước Hải', NULL, 'Tỉnh Khánh Hòa', NULL, 'Thành phố Cam Ranh', 'Phường Ba Ngòi', '0941974452', 9);
 
 -- --------------------------------------------------------
 
@@ -57,16 +59,16 @@ INSERT INTO `addresses` (`id`, `first_name`, `last_name`, `company`, `address`, 
 
 CREATE TABLE `books` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `author` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `author` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `price` int(11) NOT NULL DEFAULT 0,
   `publisher_id` bigint(20) UNSIGNED NOT NULL,
   `quantity` int(11) NOT NULL DEFAULT 0,
   `publication_date` timestamp NULL DEFAULT NULL,
   `page_quantity` int(11) DEFAULT NULL,
-  `isbn` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `isbn` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -94,7 +96,7 @@ INSERT INTO `books` (`id`, `title`, `author`, `description`, `image`, `price`, `
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -111,16 +113,77 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company` varchar(50) NOT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `ward` varchar(50) NOT NULL,
+  `district` varchar(50) NOT NULL,
+  `phone_number` varchar(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `user_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `company`, `full_name`, `address`, `city`, `ward`, `district`, `phone_number`, `total`, `status`, `user_id`) VALUES
+(2, 'Sun', 'Tuan Nguyen Phan Anh', 'Lô 34, đường số 10 KĐT Lê Hồng Phong 2 phường Phước Hải', 'Tỉnh Khánh Hòa', 'Phường Ba Ngòi', 'Thành phố Cam Ranh', '0941974452', 23, 1, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_details`
+--
+
+CREATE TABLE `order_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `amount` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `amount`) VALUES
+(1, 2, 6, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `reset_code` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -135,7 +198,7 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `publishers` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(50) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -159,10 +222,12 @@ INSERT INTO `publishers` (`id`, `name`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `level` tinyint(1) NOT NULL,
+  `email_verification_code` varchar(10) NOT NULL,
+  `email_verified_at` datetime DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -170,10 +235,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `password`, `email`, `level`, `created_at`) VALUES
-(1, 'Admin', '$2y$10$sEN7.oCLpJ3s77ogynLKU.Uq9Zim673GLy/fomiX4EjPlMeYq/djS', 'admin@admin.com', 0, '2022-10-09 04:26:34'),
-(5, 'User', '$2y$10$95S9U.wdH.4kmM.uCm3ZeuYPvRLbSAiQD9UPv4oeuQl7U1MMsJppS', 'user@user.com', 1, '2022-10-09 22:41:01'),
-(6, 'Anh Tuan', '$2y$10$dfeaAk/bIBfG.D7YTLqBMep4RExrRboBYEeDwvXebJbGpqokD5Aom', 'tuan@gmail.com', 1, '2022-11-15 14:39:20');
+INSERT INTO `users` (`id`, `name`, `password`, `email`, `level`, `email_verification_code`, `email_verified_at`, `created_at`) VALUES
+(5, 'User', '$2y$10$95S9U.wdH.4kmM.uCm3ZeuYPvRLbSAiQD9UPv4oeuQl7U1MMsJppS', 'user@user.com', 1, '0', '2023-05-31 07:03:55', '2022-10-09 22:41:01'),
+(6, 'Anh Tuan', '$2y$10$dfeaAk/bIBfG.D7YTLqBMep4RExrRboBYEeDwvXebJbGpqokD5Aom', 'tuan@gmail.com', 1, '0', '2023-05-31 07:03:55', '2022-11-15 14:39:20'),
+(9, 'KiuPhox', '$2y$10$iqdhG91AE6xeKKPMWAaHw.q7ghsG4HlWwdvQurkSKuXExaV3psKFK', 'admin@admin.com', 0, 'DXAftTX6am', '2023-05-31 07:03:55', '2023-05-31 07:02:55'),
+(10, 'NoTa', '$2y$10$M3FvEwKYlZebccgI8QizKejxuoB2aK8JK7Jvjb6LM/uzKoxpsGk.S', 'tuan.nguyenphananh@gmail.com', 1, '3i4hQl1XVA', '2023-05-31 07:31:41', '2023-05-31 07:31:26');
 
 --
 -- Indexes for dumped tables
@@ -198,6 +264,28 @@ ALTER TABLE `books`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `order_details`
+--
+ALTER TABLE `order_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `personal_access_tokens`
@@ -229,7 +317,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `books`
@@ -242,6 +330,24 @@ ALTER TABLE `books`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `order_details`
+--
+ALTER TABLE `order_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -259,7 +365,7 @@ ALTER TABLE `publishers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
@@ -276,6 +382,25 @@ ALTER TABLE `addresses`
 --
 ALTER TABLE `books`
   ADD CONSTRAINT `books_publisher_id_foreign` FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`id`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `order_details`
+--
+ALTER TABLE `order_details`
+  ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `books` (`id`);
+
+--
+-- Constraints for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD CONSTRAINT `password_resets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
